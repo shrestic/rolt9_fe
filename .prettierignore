@@ -1,0 +1,2 @@
+# Local Claude Code config (gitignored, not part of source)
+.claude/settings.local.json

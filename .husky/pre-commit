@@ -1,0 +1,7 @@
+[ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+
+# Lint + format only the staged files (auto-fixes and re-stages them)
+pnpm exec lint-staged
+
+# Type-check the whole project (types are project-wide, not per-file)
+pnpm run type-check
