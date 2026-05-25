@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./App";
 import { routeTree } from "../routeTree.gen";
 import { config } from "@/settings/config";
+import { canonicalHostRedirect } from "@/utils/host";
 import "@/styles/tailwind.css";
 import "@/utils/i18n";
 
@@ -25,12 +26,23 @@ async function enableMocking(): Promise<void> {
 
 const rootElement = document.querySelector("#root") as Element;
 
-void enableMocking().then(() => {
-	if (!rootElement.innerHTML) {
-		createRoot(rootElement).render(
-			<StrictMode>
-				<App router={router} />
-			</StrictMode>
-		);
-	}
-});
+// The session cookie is host-scoped to the API's host (localhost). Opening the
+// app on 127.0.0.1 or a LAN IP means that cookie is never sent -> endless
+// Discord login loop. In dev, send the browser to the canonical host first.
+const redirectTo = import.meta.env.DEV
+	? canonicalHostRedirect(window.location)
+	: null;
+
+if (redirectTo) {
+	window.location.replace(redirectTo);
+} else {
+	void enableMocking().then(() => {
+		if (!rootElement.innerHTML) {
+			createRoot(rootElement).render(
+				<StrictMode>
+					<App router={router} />
+				</StrictMode>
+			);
+		}
+	});
+}
