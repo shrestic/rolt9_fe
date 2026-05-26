@@ -8,115 +8,199 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as DashboardRouteImport } from "./routes/dashboard";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as DashboardIndexRouteImport } from "./routes/dashboard.index";
-import { Route as DashboardGuildIdRouteImport } from "./routes/dashboard.$guildId";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
+import { Route as DashboardGuildIdRouteImport } from './routes/dashboard.$guildId'
+import { Route as DashboardGuildIdIndexRouteImport } from './routes/dashboard.$guildId.index'
+import { Route as DashboardGuildIdModerationRouteImport } from './routes/dashboard.$guildId.moderation'
+import { Route as DashboardGuildIdCommandsRouteImport } from './routes/dashboard.$guildId.commands'
 
 const DashboardRoute = DashboardRouteImport.update({
-	id: "/dashboard",
-	path: "/dashboard",
-	getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => rootRouteImport,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
-	id: "/",
-	path: "/",
-	getParentRoute: () => DashboardRoute,
-} as any);
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardRoute,
+} as any)
 const DashboardGuildIdRoute = DashboardGuildIdRouteImport.update({
-	id: "/$guildId",
-	path: "/$guildId",
-	getParentRoute: () => DashboardRoute,
-} as any);
+  id: '/$guildId',
+  path: '/$guildId',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const DashboardGuildIdIndexRoute = DashboardGuildIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DashboardGuildIdRoute,
+} as any)
+const DashboardGuildIdModerationRoute =
+  DashboardGuildIdModerationRouteImport.update({
+    id: '/moderation',
+    path: '/moderation',
+    getParentRoute: () => DashboardGuildIdRoute,
+  } as any)
+const DashboardGuildIdCommandsRoute =
+  DashboardGuildIdCommandsRouteImport.update({
+    id: '/commands',
+    path: '/commands',
+    getParentRoute: () => DashboardGuildIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-	"/": typeof IndexRoute;
-	"/dashboard": typeof DashboardRouteWithChildren;
-	"/dashboard/$guildId": typeof DashboardGuildIdRoute;
-	"/dashboard/": typeof DashboardIndexRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
+  '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
+  '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
 }
 export interface FileRoutesByTo {
-	"/": typeof IndexRoute;
-	"/dashboard/$guildId": typeof DashboardGuildIdRoute;
-	"/dashboard": typeof DashboardIndexRoute;
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
+  '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
+  '/dashboard/$guildId': typeof DashboardGuildIdIndexRoute
 }
 export interface FileRoutesById {
-	__root__: typeof rootRouteImport;
-	"/": typeof IndexRoute;
-	"/dashboard": typeof DashboardRouteWithChildren;
-	"/dashboard/$guildId": typeof DashboardGuildIdRoute;
-	"/dashboard/": typeof DashboardIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
+  '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
+  '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
+  '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
 }
 export interface FileRouteTypes {
-	fileRoutesByFullPath: FileRoutesByFullPath;
-	fullPaths: "/" | "/dashboard" | "/dashboard/$guildId" | "/dashboard/";
-	fileRoutesByTo: FileRoutesByTo;
-	to: "/" | "/dashboard/$guildId" | "/dashboard";
-	id: "__root__" | "/" | "/dashboard" | "/dashboard/$guildId" | "/dashboard/";
-	fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/dashboard/$guildId'
+    | '/dashboard/'
+    | '/dashboard/$guildId/commands'
+    | '/dashboard/$guildId/moderation'
+    | '/dashboard/$guildId/'
+  fileRoutesByTo: FileRoutesByTo
+  to:
+    | '/'
+    | '/dashboard'
+    | '/dashboard/$guildId/commands'
+    | '/dashboard/$guildId/moderation'
+    | '/dashboard/$guildId'
+  id:
+    | '__root__'
+    | '/'
+    | '/dashboard'
+    | '/dashboard/$guildId'
+    | '/dashboard/'
+    | '/dashboard/$guildId/commands'
+    | '/dashboard/$guildId/moderation'
+    | '/dashboard/$guildId/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-	IndexRoute: typeof IndexRoute;
-	DashboardRoute: typeof DashboardRouteWithChildren;
+  IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
 }
 
-declare module "@tanstack/react-router" {
-	interface FileRoutesByPath {
-		"/dashboard": {
-			id: "/dashboard";
-			path: "/dashboard";
-			fullPath: "/dashboard";
-			preLoaderRoute: typeof DashboardRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/": {
-			id: "/";
-			path: "/";
-			fullPath: "/";
-			preLoaderRoute: typeof IndexRouteImport;
-			parentRoute: typeof rootRouteImport;
-		};
-		"/dashboard/": {
-			id: "/dashboard/";
-			path: "/";
-			fullPath: "/dashboard/";
-			preLoaderRoute: typeof DashboardIndexRouteImport;
-			parentRoute: typeof DashboardRoute;
-		};
-		"/dashboard/$guildId": {
-			id: "/dashboard/$guildId";
-			path: "/$guildId";
-			fullPath: "/dashboard/$guildId";
-			preLoaderRoute: typeof DashboardGuildIdRouteImport;
-			parentRoute: typeof DashboardRoute;
-		};
-	}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/': {
+      id: '/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof DashboardIndexRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/$guildId': {
+      id: '/dashboard/$guildId'
+      path: '/$guildId'
+      fullPath: '/dashboard/$guildId'
+      preLoaderRoute: typeof DashboardGuildIdRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/dashboard/$guildId/': {
+      id: '/dashboard/$guildId/'
+      path: '/'
+      fullPath: '/dashboard/$guildId/'
+      preLoaderRoute: typeof DashboardGuildIdIndexRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
+    '/dashboard/$guildId/moderation': {
+      id: '/dashboard/$guildId/moderation'
+      path: '/moderation'
+      fullPath: '/dashboard/$guildId/moderation'
+      preLoaderRoute: typeof DashboardGuildIdModerationRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
+    '/dashboard/$guildId/commands': {
+      id: '/dashboard/$guildId/commands'
+      path: '/commands'
+      fullPath: '/dashboard/$guildId/commands'
+      preLoaderRoute: typeof DashboardGuildIdCommandsRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
+  }
 }
+
+interface DashboardGuildIdRouteChildren {
+  DashboardGuildIdCommandsRoute: typeof DashboardGuildIdCommandsRoute
+  DashboardGuildIdModerationRoute: typeof DashboardGuildIdModerationRoute
+  DashboardGuildIdIndexRoute: typeof DashboardGuildIdIndexRoute
+}
+
+const DashboardGuildIdRouteChildren: DashboardGuildIdRouteChildren = {
+  DashboardGuildIdCommandsRoute: DashboardGuildIdCommandsRoute,
+  DashboardGuildIdModerationRoute: DashboardGuildIdModerationRoute,
+  DashboardGuildIdIndexRoute: DashboardGuildIdIndexRoute,
+}
+
+const DashboardGuildIdRouteWithChildren =
+  DashboardGuildIdRoute._addFileChildren(DashboardGuildIdRouteChildren)
 
 interface DashboardRouteChildren {
-	DashboardGuildIdRoute: typeof DashboardGuildIdRoute;
-	DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardGuildIdRoute: typeof DashboardGuildIdRouteWithChildren
+  DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
-	DashboardGuildIdRoute: DashboardGuildIdRoute,
-	DashboardIndexRoute: DashboardIndexRoute,
-};
+  DashboardGuildIdRoute: DashboardGuildIdRouteWithChildren,
+  DashboardIndexRoute: DashboardIndexRoute,
+}
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
-	DashboardRouteChildren
-);
+  DashboardRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-	IndexRoute: IndexRoute,
-	DashboardRoute: DashboardRouteWithChildren,
-};
+  IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+}
 export const routeTree = rootRouteImport
-	._addFileChildren(rootRouteChildren)
-	._addFileTypes<FileRouteTypes>();
+  ._addFileChildren(rootRouteChildren)
+  ._addFileTypes<FileRouteTypes>()

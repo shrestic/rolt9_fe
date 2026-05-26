@@ -1,0 +1,5 @@
+{
+	"permissions": {
+		"allow": ["Bash(docker cp *)", "Bash(pnpm -v)"]
+	}
+}

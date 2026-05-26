@@ -8,7 +8,9 @@ import {
 import { createRepositories } from "./repositories";
 import type { Repositories } from "./types";
 import type { AuthenticationRepository } from "@/data/repositories/authentication.repository";
+import type { CommandRepository } from "@/data/repositories/command.repository";
 import type { GuildRepository } from "@/data/repositories/guild.repository";
+import type { ModerationRepository } from "@/data/repositories/moderation.repository";
 
 const RepositoriesContext = createContext<Repositories | null>(null);
 
@@ -42,3 +44,8 @@ export const useAuthRepository = (): AuthenticationRepository =>
 // eslint-disable-next-line react-refresh/only-export-components
 export const useGuildRepository = (): GuildRepository =>
 	useRepositories().guild;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useModerationRepository = (): ModerationRepository =>
+	useRepositories().moderation;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useCommandRepository = (): CommandRepository => useRepositories().command;

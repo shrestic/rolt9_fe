@@ -1,15 +1,23 @@
 import { http } from "@/utils/http";
 import { makeAuthenticationRemote } from "@/data/datasource/remote/authentication.remote";
+import { makeCommandRemote } from "@/data/datasource/remote/command.remote";
 import { makeGuildRemote } from "@/data/datasource/remote/guild.remote";
+import { makeModerationRemote } from "@/data/datasource/remote/moderation.remote";
 import { makeAuthenticationRepository } from "@/data/repositories/authentication.repository";
+import { makeCommandRepository } from "@/data/repositories/command.repository";
 import { makeGuildRepository } from "@/data/repositories/guild.repository";
+import { makeModerationRepository } from "@/data/repositories/moderation.repository";
 import type { Repositories } from "./types";
 
 export const createRepositories = (client = http): Repositories => {
 	const authRemote = makeAuthenticationRemote(client);
 	const guildRemote = makeGuildRemote(client);
+	const moderationRemote = makeModerationRemote(client);
+	const commandRemote = makeCommandRemote(client);
 	return {
 		auth: makeAuthenticationRepository(authRemote),
 		guild: makeGuildRepository(guildRemote),
+		moderation: makeModerationRepository(moderationRemote),
+		command: makeCommandRepository(commandRemote),
 	};
 };
