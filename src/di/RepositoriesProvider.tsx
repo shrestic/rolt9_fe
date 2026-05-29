@@ -9,6 +9,7 @@ import { createRepositories } from "./repositories";
 import type { Repositories } from "./types";
 import type { AuthenticationRepository } from "@/data/repositories/authentication.repository";
 import type { CommandRepository } from "@/data/repositories/command.repository";
+import type { CurrencyRepository } from "@/data/repositories/currency.repository";
 import type { GuildRepository } from "@/data/repositories/guild.repository";
 import type { LevelingRepository } from "@/data/repositories/leveling.repository";
 import type { ModerationRepository } from "@/data/repositories/moderation.repository";
@@ -49,7 +50,11 @@ export const useGuildRepository = (): GuildRepository =>
 export const useModerationRepository = (): ModerationRepository =>
 	useRepositories().moderation;
 // eslint-disable-next-line react-refresh/only-export-components
-export const useCommandRepository = (): CommandRepository => useRepositories().command;
+export const useCommandRepository = (): CommandRepository =>
+	useRepositories().command;
 // eslint-disable-next-line react-refresh/only-export-components
 export const useLevelingRepository = (): LevelingRepository =>
 	useRepositories().leveling;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useCurrencyRepository = (): CurrencyRepository =>
+	useRepositories().currency;

@@ -20,4 +20,8 @@ export const endpoints = {
 	levelingReward: (id: string, level: number) =>
 		`/guilds/${id}/leveling/rewards/${level}`,
 	levelingTheme: (id: string) => `/guilds/${id}/leveling/rank-card-theme`,
+	currencySettings: (id: string) => `/guilds/${id}/currency/settings`,
+	currencyLeaderboard: (id: string) => `/guilds/${id}/currency/leaderboard`,
+	currencyMember: (id: string, userId: string) =>
+		`/guilds/${id}/currency/members/${userId}`,
 } as const;

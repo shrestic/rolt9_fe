@@ -13,9 +13,14 @@ const ITEMS: Array<Item> = [
 	{ label: "Reaction Roles", enabled: false },
 	{ label: "Logging", enabled: false },
 	{ label: "Leveling", to: "/dashboard/$guildId/leveling", enabled: true },
+	{ label: "Currency", to: "/dashboard/$guildId/currency", enabled: true },
 ];
 
-export const GuildSidebar = ({ guildId }: { guildId: string }): ReactElement => (
+export const GuildSidebar = ({
+	guildId,
+}: {
+	guildId: string;
+}): ReactElement => (
 	<VStack
 		align="stretch"
 		bg="bg.muted"
@@ -63,7 +68,13 @@ export const GuildSidebar = ({ guildId }: { guildId: string }): ReactElement => 
 					<Box color="text.muted" flex={1} fontSize="sm">
 						{it.label}
 					</Box>
-					<Badge borderRadius="full" colorScheme="pink" fontSize="2xs" px={2} variant="subtle">
+					<Badge
+						borderRadius="full"
+						colorScheme="pink"
+						fontSize="2xs"
+						px={2}
+						variant="subtle"
+					>
 						Soon
 					</Badge>
 				</HStack>
