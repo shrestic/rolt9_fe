@@ -24,4 +24,6 @@ export const endpoints = {
 	currencyLeaderboard: (id: string) => `/guilds/${id}/currency/leaderboard`,
 	currencyMember: (id: string, userId: string) =>
 		`/guilds/${id}/currency/members/${userId}`,
+	badgeSettings: (id: string) => `/guilds/${id}/badges/settings`,
+	badgeCatalog: (id: string) => `/guilds/${id}/badges/catalog`,
 } as const;
