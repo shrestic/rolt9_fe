@@ -12,6 +12,7 @@ import {
 import type { ReactElement, ReactNode } from "react";
 import { useCurrentUser } from "@/modules/authentication/hooks/useCurrentUser";
 import { useLogout } from "@/modules/authentication/hooks/useLogout";
+import { gradients } from "@/theme/tokens";
 
 export const RootView = ({
 	children,
@@ -26,7 +27,7 @@ export const RootView = ({
 			<Flex
 				align="center"
 				as="header"
-				bgGradient="linear(to-r, pink.500, purple.500, blurple.500)"
+				bgGradient={gradients.brandHero}
 				boxShadow="sm"
 				px={6}
 				py={3}
@@ -34,7 +35,7 @@ export const RootView = ({
 				<Flex align="center" gap={2}>
 					<Text fontSize="xl">🤖</Text>
 					<Box
-						color="white"
+						color="text.inverted"
 						fontSize="lg"
 						fontWeight="bold"
 						letterSpacing="tight"

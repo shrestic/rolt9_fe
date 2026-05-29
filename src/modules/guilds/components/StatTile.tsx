@@ -1,5 +1,6 @@
 import { Box, Text } from "@chakra-ui/react";
 import type { ReactElement } from "react";
+import { gradients } from "@/theme/tokens";
 
 export function StatTile({
 	emoji,
@@ -13,7 +14,7 @@ export function StatTile({
 	return (
 		<Box
 			_hover={{ boxShadow: "md", transform: "translateY(-1px)" }}
-			bg="white"
+			bg="bg.surface"
 			borderRadius="2xl"
 			boxShadow="sm"
 			p={5}
@@ -25,13 +26,13 @@ export function StatTile({
 			</Text>
 			<Text
 				bgClip="text"
-				bgGradient="linear(to-r, pink.500, purple.500)"
+				bgGradient={gradients.brand}
 				fontSize="2xl"
 				fontWeight="extrabold"
 			>
 				{value.toLocaleString()}
 			</Text>
-			<Text color="gray.500" fontSize="xs" fontWeight="medium" mt={1}>
+			<Text color="text.subtle" fontSize="xs" fontWeight="medium" mt={1}>
 				{label}
 			</Text>
 		</Box>

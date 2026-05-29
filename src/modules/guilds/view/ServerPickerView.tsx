@@ -10,6 +10,7 @@ import type { ReactElement } from "react";
 import { useMyGuilds } from "@/modules/guilds/hooks/useMyGuilds";
 import { useGuildUiStore } from "@/modules/guilds/store/guild-ui.store";
 import { GuildCard } from "@/modules/guilds/components/GuildCard";
+import { gradients } from "@/theme/tokens";
 
 export function ServerPickerView(): ReactElement {
 	const invitePolling = useGuildUiStore((s) => s.invitePolling);
@@ -21,7 +22,7 @@ export function ServerPickerView(): ReactElement {
 		<Box p={8}>
 			<Heading
 				bgClip="text"
-				bgGradient="linear(to-r, pink.500, purple.500)"
+				bgGradient={gradients.brand}
 				fontWeight="extrabold"
 				mb={8}
 				size="lg"
@@ -44,7 +45,7 @@ export function ServerPickerView(): ReactElement {
 			)}
 
 			{!isLoading && data?.length === 0 && (
-				<VStack color="gray.500" py={16} spacing={4} textAlign="center">
+				<VStack color="text.subtle" py={16} spacing={4} textAlign="center">
 					<Text fontSize="4xl">🌱</Text>
 					<Text fontSize="md" lineHeight="tall" maxW="320px">
 						No servers yet — go create one in Discord and come back!

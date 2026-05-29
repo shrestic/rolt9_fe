@@ -1,6 +1,7 @@
 import type { AuthenticationRepository } from "@/data/repositories/authentication.repository";
 import type { CommandRepository } from "@/data/repositories/command.repository";
 import type { GuildRepository } from "@/data/repositories/guild.repository";
+import type { LevelingRepository } from "@/data/repositories/leveling.repository";
 import type { ModerationRepository } from "@/data/repositories/moderation.repository";
 
 export type Repositories = {
@@ -8,4 +9,5 @@ export type Repositories = {
 	guild: GuildRepository;
 	moderation: ModerationRepository;
 	command: CommandRepository;
+	leveling: LevelingRepository;
 };

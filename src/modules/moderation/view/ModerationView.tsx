@@ -63,7 +63,7 @@ export function ModerationView(): ReactElement {
 		<VStack align="stretch" spacing={8}>
 			<Heading size="md">Moderation</Heading>
 
-			<Box bg="white" borderRadius="2xl" boxShadow="sm" p={6}>
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
 				<VStack align="stretch" spacing={4}>
 					<FormControl>
 						<FormLabel>Mod-log channel</FormLabel>
@@ -107,7 +107,7 @@ export function ModerationView(): ReactElement {
 
 			<Divider />
 
-			<Box bg="white" borderRadius="2xl" boxShadow="sm" p={6}>
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
 				<HStack justify="space-between" mb={4}>
 					<Heading size="sm">Case history</Heading>
 					<Select

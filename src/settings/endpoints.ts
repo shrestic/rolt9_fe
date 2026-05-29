@@ -12,4 +12,12 @@ export const endpoints = {
 		`/guilds/${id}/commands/${commandId}`,
 	commandSettings: (id: string) => `/guilds/${id}/command-settings`,
 	commandPreview: (id: string) => `/guilds/${id}/commands/preview`,
+	levelingSettings: (id: string) => `/guilds/${id}/leveling/settings`,
+	levelingLeaderboard: (id: string) => `/guilds/${id}/leveling/leaderboard`,
+	levelingMember: (id: string, userId: string) =>
+		`/guilds/${id}/leveling/members/${userId}`,
+	levelingRewards: (id: string) => `/guilds/${id}/leveling/rewards`,
+	levelingReward: (id: string, level: number) =>
+		`/guilds/${id}/leveling/rewards/${level}`,
+	levelingTheme: (id: string) => `/guilds/${id}/leveling/rank-card-theme`,
 } as const;

@@ -12,6 +12,7 @@ import { useParams } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { StatTile } from "@/modules/guilds/components/StatTile";
 import { useGuildOverview } from "@/modules/guilds/hooks/useGuildOverview";
+import { gradients } from "@/theme/tokens";
 
 export function GuildOverviewView(): ReactElement {
 	const { guildId } = useParams({ from: "/dashboard/$guildId/" });
@@ -21,20 +22,20 @@ export function GuildOverviewView(): ReactElement {
 		<>
 			{isLoading && <Skeleton borderRadius="2xl" h="80px" />}
 			{error && (
-				<Text color="red.500">
+				<Text color="text.danger">
 					You don&apos;t have permission to configure this server.
 				</Text>
 			)}
 			{data && (
 				<VStack align="stretch" spacing={8}>
-					<Box bg="white" borderRadius="2xl" boxShadow="sm" p={6}>
+					<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
 						<HStack spacing={5}>
 							{data.iconUrl ? (
 								<Image alt="" borderRadius="full" boxSize="64px" src={data.iconUrl} />
 							) : (
 								<Box
 									alignItems="center"
-									bgGradient="linear(to-br, pink.100, purple.100)"
+									bgGradient={gradients.brandSoft}
 									borderRadius="full"
 									boxSize="64px"
 									display="flex"
@@ -44,7 +45,7 @@ export function GuildOverviewView(): ReactElement {
 									🤖
 								</Box>
 							)}
-							<Heading color="gray.800" size="md">
+							<Heading color="text.default" size="md">
 								{data.name}
 							</Heading>
 						</HStack>

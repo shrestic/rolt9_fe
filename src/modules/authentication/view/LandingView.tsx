@@ -2,6 +2,7 @@ import { Box, Center, Heading, Text, VStack } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import type { ReactElement } from "react";
 import { LoginButton } from "@/modules/authentication/components/LoginButton";
+import { gradients } from "@/theme/tokens";
 
 const MotionBox = motion(Box);
 
@@ -9,7 +10,7 @@ export function LandingView(): ReactElement {
 	return (
 		<Box
 			alignItems="center"
-			bg="white"
+			bg="bg.canvas"
 			display="flex"
 			justifyContent="center"
 			minH="100vh"
@@ -57,7 +58,7 @@ export function LandingView(): ReactElement {
 					<Heading
 						as="h1"
 						bgClip="text"
-						bgGradient="linear(to-r, pink.500, purple.500, blurple.500)"
+						bgGradient={gradients.brandHero}
 						fontSize={["4xl", "5xl", "6xl"]}
 						fontWeight="extrabold"
 						letterSpacing="tight"
@@ -66,14 +67,14 @@ export function LandingView(): ReactElement {
 					</Heading>
 
 					<Text
-						color="gray.600"
+						color="text.muted"
 						fontSize={["md", "lg"]}
 						lineHeight="tall"
 						maxW="360px"
 						textAlign="center"
 					>
 						Spin up your own Discord bot in seconds.{" "}
-						<Text as="span" color="gray.800" fontWeight="medium">
+						<Text as="span" color="text.default" fontWeight="medium">
 							No code. No hassle.
 						</Text>
 					</Text>

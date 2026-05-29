@@ -34,7 +34,7 @@ export const PlaceholderHint = ({
 
 	return (
 		<Box mt={2}>
-			<Text color="gray.500" fontSize="xs" mb={1}>
+			<Text color="text.subtle" fontSize="xs" mb={1}>
 				Click a placeholder to copy it. Sample values come from this server:
 			</Text>
 			<HStack flexWrap="wrap" spacing={2}>
@@ -55,7 +55,7 @@ export const PlaceholderHint = ({
 							{token}{" "}
 							<Text
 								as="span"
-								color="purple.700"
+								color="accent.primaryActive"
 								fontWeight="normal"
 								ml={1}
 								opacity={0.75}

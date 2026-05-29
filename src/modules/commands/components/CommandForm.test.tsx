@@ -60,6 +60,7 @@ const makeMockRepos = (): Repositories => ({
 			placeholders: [],
 		}),
 	},
+	leveling: {} as Repositories["leveling"],
 });
 
 // Render CommandForm inside the providers it expects:

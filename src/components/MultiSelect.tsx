@@ -70,7 +70,7 @@ export const MultiSelect = ({
 				whiteSpace="normal"
 			>
 				{selected.length === 0 ? (
-					<Text color="gray.500" fontWeight="normal">
+					<Text color="text.subtle" fontWeight="normal">
 						{emptyLabel ?? placeholder}
 					</Text>
 				) : (
@@ -92,7 +92,7 @@ export const MultiSelect = ({
 			</MenuButton>
 			<MenuList maxH="300px" overflowY="auto">
 				{options.length === 0 ? (
-					<Box color="gray.500" fontSize="sm" px={3} py={2}>
+					<Box color="text.subtle" fontSize="sm" px={3} py={2}>
 						No options available
 					</Box>
 				) : (

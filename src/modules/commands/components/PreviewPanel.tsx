@@ -36,7 +36,7 @@ const RenderedSection = ({
 		// Render Discord markdown so **bold** / *italic* / [link] etc. appear
 		// the same way they will in the actual Discord message.
 		return (
-			<Box bg="white" borderRadius="md" borderWidth="1px" fontSize="sm" p={3}>
+			<Box bg="bg.surface" borderRadius="md" borderWidth="1px" fontSize="sm" p={3}>
 				<Box whiteSpace="pre-wrap">
 					<DiscordMarkdown text={preview.renderedText} />
 				</Box>
@@ -47,7 +47,7 @@ const RenderedSection = ({
 		const embed = preview.renderedEmbed;
 		return (
 			<Box
-				bg="white"
+				bg="bg.surface"
 				borderLeftColor={intToHex(embed.color)}
 				borderLeftWidth="4px"
 				borderRadius="md"
@@ -71,7 +71,7 @@ const RenderedSection = ({
 					</Box>
 				) : null}
 				{embed.footer ? (
-					<Text color="gray.500" fontSize="xs" mt={2}>
+					<Text color="text.subtle" fontSize="xs" mt={2}>
 						{embed.footer}
 					</Text>
 				) : null}
@@ -79,7 +79,7 @@ const RenderedSection = ({
 		);
 	}
 	return (
-		<Text color="gray.500" fontSize="sm">
+		<Text color="text.subtle" fontSize="sm">
 			(no output for this draft)
 		</Text>
 	);
@@ -99,14 +99,14 @@ export const PreviewPanel = ({
 	return (
 		<VStack
 			align="stretch"
-			bg="gray.50"
+			bg="bg.muted"
 			borderRadius="lg"
 			borderWidth="1px"
 			h="100%"
 			p={4}
 			spacing={5}
 		>
-			<Heading color="gray.500" size="xs" textTransform="uppercase">
+			<Heading color="text.subtle" size="xs" textTransform="uppercase">
 				Live preview
 			</Heading>
 
@@ -116,11 +116,11 @@ export const PreviewPanel = ({
 					<Skeleton height="20px" />
 				</Stack>
 			) : isError ? (
-				<Text color="red.500" fontSize="sm">
+				<Text color="text.danger" fontSize="sm">
 					Preview failed — check that the bot is in this server.
 				</Text>
 			) : !preview ? (
-				<Text color="gray.500" fontSize="sm">
+				<Text color="text.subtle" fontSize="sm">
 					Start typing to see the rendered output.
 				</Text>
 			) : (
@@ -130,7 +130,7 @@ export const PreviewPanel = ({
 			<Divider />
 
 			<VStack align="stretch" spacing={2}>
-				<Heading color="gray.500" size="xs" textTransform="uppercase">
+				<Heading color="text.subtle" size="xs" textTransform="uppercase">
 					Available placeholders
 				</Heading>
 				{preview ? (
@@ -140,13 +140,13 @@ export const PreviewPanel = ({
 								<Code fontSize="xs" minW="120px">
 									{`{${p.name}}`}
 								</Code>
-								<Text color="gray.600" flex="1">
+								<Text color="text.muted" flex="1">
 									{p.description}
 								</Text>
 								<Badge
 									isTruncated
 									colorScheme="purple"
-									fontSize="0.65em"
+									fontSize="xs"
 									maxW="160px"
 								>
 									{p.example}
@@ -155,7 +155,7 @@ export const PreviewPanel = ({
 						))}
 					</VStack>
 				) : (
-					<Text color="gray.500" fontSize="sm">
+					<Text color="text.subtle" fontSize="sm">
 						(loading…)
 					</Text>
 				)}

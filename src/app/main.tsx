@@ -5,7 +5,6 @@ import { App } from "./App";
 import { routeTree } from "../routeTree.gen";
 import { config } from "@/settings/config";
 import { canonicalHostRedirect } from "@/utils/host";
-import "@/styles/tailwind.css";
 import "@/utils/i18n";
 
 const router = createRouter({ routeTree });

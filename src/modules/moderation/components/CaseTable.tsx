@@ -6,7 +6,7 @@ type Props = { cases: Array<ModerationCase>; onDeactivate: (caseNumber: number) 
 
 export const CaseTable = ({ cases, onDeactivate }: Props): ReactElement => {
 	if (cases.length === 0) {
-		return <Text color="gray.500">No cases yet.</Text>;
+		return <Text color="text.subtle">No cases yet.</Text>;
 	}
 	return (
 		<Table size="sm">

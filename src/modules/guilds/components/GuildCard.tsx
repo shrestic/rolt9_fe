@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import type { GuildSummary } from "@/data/models/guild";
 import { config } from "@/settings/config";
+import { gradients } from "@/theme/tokens";
 
 type Props = { guild: GuildSummary; onInviteStart: () => void };
 
@@ -20,7 +21,7 @@ export const GuildCard = ({ guild, onInviteStart }: Props): ReactElement => {
 
 	return (
 		<Box
-			bg="white"
+			bg="bg.surface"
 			borderRadius="2xl"
 			boxShadow="md"
 			p={5}
@@ -33,12 +34,10 @@ export const GuildCard = ({ guild, onInviteStart }: Props): ReactElement => {
 			<HStack mb={4} spacing={3}>
 				{guild.iconUrl ? (
 					<Box
+						bgGradient="linear(135deg, pink.400, purple.500)"
 						borderRadius="full"
 						display="inline-flex"
 						p="2px"
-						style={{
-							background: "linear-gradient(135deg, #f472b6, #a855f7)",
-						}}
 					>
 						<Image
 							alt=""
@@ -50,19 +49,17 @@ export const GuildCard = ({ guild, onInviteStart }: Props): ReactElement => {
 				) : (
 					<Box
 						alignItems="center"
+						bgGradient={gradients.brandSoft}
 						borderRadius="full"
 						boxSize="40px"
 						display="flex"
 						fontSize="lg"
 						justifyContent="center"
-						style={{
-							background: "linear-gradient(135deg, #fce7f3, #f3e8ff)",
-						}}
 					>
 						🤖
 					</Box>
 				)}
-				<Box color="gray.800" fontSize="sm" fontWeight="semibold">
+				<Box color="text.default" fontSize="sm" fontWeight="semibold">
 					{guild.name}
 				</Box>
 			</HStack>
@@ -70,18 +67,10 @@ export const GuildCard = ({ guild, onInviteStart }: Props): ReactElement => {
 				<Link params={{ guildId: guild.discordId }} to="/dashboard/$guildId">
 					<Button
 						borderRadius="lg"
-						color="white"
 						fontWeight="semibold"
 						size="sm"
-						transition="all 0.2s"
+						variant="gradient"
 						w="full"
-						_hover={{
-							opacity: 0.9,
-							boxShadow: "md",
-						}}
-						style={{
-							background: "linear-gradient(to right, #ec4899, #a855f7)",
-						}}
 					>
 						Configure
 					</Button>

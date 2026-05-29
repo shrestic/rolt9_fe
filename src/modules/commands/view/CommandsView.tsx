@@ -67,7 +67,7 @@ export function CommandsView(): ReactElement {
 		<VStack align="stretch" spacing={8}>
 			<Heading size="md">Custom commands</Heading>
 
-			<Box bg="white" borderRadius="2xl" boxShadow="sm" p={6}>
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
 				<HStack>
 					<Text fontWeight="semibold">Prefix</Text>
 					<Input
@@ -96,7 +96,7 @@ export function CommandsView(): ReactElement {
 				</HStack>
 			</Box>
 
-			<Box bg="white" borderRadius="2xl" boxShadow="sm" p={6}>
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
 				<HStack justify="space-between" mb={4}>
 					<Heading size="sm">Commands</Heading>
 					<Button
@@ -124,7 +124,7 @@ export function CommandsView(): ReactElement {
 						}}
 					/>
 				) : (commands.data?.length ?? 0) === 0 ? (
-					<Text color="gray.500">No commands yet.</Text>
+					<Text color="text.subtle">No commands yet.</Text>
 				) : (
 					<Table size="sm">
 						<Thead>

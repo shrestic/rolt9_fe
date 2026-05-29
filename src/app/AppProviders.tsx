@@ -17,7 +17,7 @@ export const AppProviders = ({
 				<Suspense
 					fallback={
 						<Center minH="100vh">
-							<Spinner color="purple.500" size="xl" thickness="4px" />
+							<Spinner color="accent.primary" size="xl" thickness="4px" />
 						</Center>
 					}
 				>

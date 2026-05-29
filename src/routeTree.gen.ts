@@ -15,6 +15,7 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardGuildIdRouteImport } from './routes/dashboard.$guildId'
 import { Route as DashboardGuildIdIndexRouteImport } from './routes/dashboard.$guildId.index'
 import { Route as DashboardGuildIdModerationRouteImport } from './routes/dashboard.$guildId.moderation'
+import { Route as DashboardGuildIdLevelingRouteImport } from './routes/dashboard.$guildId.leveling'
 import { Route as DashboardGuildIdCommandsRouteImport } from './routes/dashboard.$guildId.commands'
 
 const DashboardRoute = DashboardRouteImport.update({
@@ -48,6 +49,12 @@ const DashboardGuildIdModerationRoute =
     path: '/moderation',
     getParentRoute: () => DashboardGuildIdRoute,
   } as any)
+const DashboardGuildIdLevelingRoute =
+  DashboardGuildIdLevelingRouteImport.update({
+    id: '/leveling',
+    path: '/leveling',
+    getParentRoute: () => DashboardGuildIdRoute,
+  } as any)
 const DashboardGuildIdCommandsRoute =
   DashboardGuildIdCommandsRouteImport.update({
     id: '/commands',
@@ -61,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
+  '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
 }
@@ -68,6 +76,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
+  '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId': typeof DashboardGuildIdIndexRoute
 }
@@ -78,6 +87,7 @@ export interface FileRoutesById {
   '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
+  '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
 }
@@ -89,6 +99,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId'
     | '/dashboard/'
     | '/dashboard/$guildId/commands'
+    | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/'
   fileRoutesByTo: FileRoutesByTo
@@ -96,6 +107,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/dashboard/$guildId/commands'
+    | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId'
   id:
@@ -105,6 +117,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId'
     | '/dashboard/'
     | '/dashboard/$guildId/commands'
+    | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/'
   fileRoutesById: FileRoutesById
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardGuildIdModerationRouteImport
       parentRoute: typeof DashboardGuildIdRoute
     }
+    '/dashboard/$guildId/leveling': {
+      id: '/dashboard/$guildId/leveling'
+      path: '/leveling'
+      fullPath: '/dashboard/$guildId/leveling'
+      preLoaderRoute: typeof DashboardGuildIdLevelingRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
     '/dashboard/$guildId/commands': {
       id: '/dashboard/$guildId/commands'
       path: '/commands'
@@ -170,12 +190,14 @@ declare module '@tanstack/react-router' {
 
 interface DashboardGuildIdRouteChildren {
   DashboardGuildIdCommandsRoute: typeof DashboardGuildIdCommandsRoute
+  DashboardGuildIdLevelingRoute: typeof DashboardGuildIdLevelingRoute
   DashboardGuildIdModerationRoute: typeof DashboardGuildIdModerationRoute
   DashboardGuildIdIndexRoute: typeof DashboardGuildIdIndexRoute
 }
 
 const DashboardGuildIdRouteChildren: DashboardGuildIdRouteChildren = {
   DashboardGuildIdCommandsRoute: DashboardGuildIdCommandsRoute,
+  DashboardGuildIdLevelingRoute: DashboardGuildIdLevelingRoute,
   DashboardGuildIdModerationRoute: DashboardGuildIdModerationRoute,
   DashboardGuildIdIndexRoute: DashboardGuildIdIndexRoute,
 }

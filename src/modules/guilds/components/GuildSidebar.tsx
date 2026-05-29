@@ -12,14 +12,14 @@ const ITEMS: Array<Item> = [
 	{ label: "Auto-mod", enabled: false },
 	{ label: "Reaction Roles", enabled: false },
 	{ label: "Logging", enabled: false },
-	{ label: "Leveling", enabled: false },
+	{ label: "Leveling", to: "/dashboard/$guildId/leveling", enabled: true },
 ];
 
 export const GuildSidebar = ({ guildId }: { guildId: string }): ReactElement => (
 	<VStack
 		align="stretch"
-		bg="gray.50"
-		borderColor="gray.100"
+		bg="bg.muted"
+		borderColor="border.subtle"
 		borderRightWidth={1}
 		minW="220px"
 		p={4}
@@ -36,7 +36,7 @@ export const GuildSidebar = ({ guildId }: { guildId: string }): ReactElement => 
 					{({ isActive }) => (
 						<Box
 							borderRadius="full"
-							color="purple.700"
+							color="accent.primaryActive"
 							fontSize="sm"
 							fontWeight="semibold"
 							px={4}
@@ -60,7 +60,7 @@ export const GuildSidebar = ({ guildId }: { guildId: string }): ReactElement => 
 					px={4}
 					py={2}
 				>
-					<Box color="gray.600" flex={1} fontSize="sm">
+					<Box color="text.muted" flex={1} fontSize="sm">
 						{it.label}
 					</Box>
 					<Badge borderRadius="full" colorScheme="pink" fontSize="2xs" px={2} variant="subtle">
