@@ -40,6 +40,9 @@ const INITIAL = {
 	earnMax: 3,
 	dailyAmount: 100,
 	allowPay: true,
+	streakEnabled: true,
+	streakBonusPerDay: 10,
+	streakBonusCap: 500,
 };
 
 export function CurrencySettingsForm({ guildId }: Props): ReactElement {
@@ -58,6 +61,15 @@ export function CurrencySettingsForm({ guildId }: Props): ReactElement {
 	const [earnMax, setEarnMax] = useState<number>(INITIAL.earnMax);
 	const [dailyAmount, setDailyAmount] = useState<number>(INITIAL.dailyAmount);
 	const [allowPay, setAllowPay] = useState<boolean>(INITIAL.allowPay);
+	const [streakEnabled, setStreakEnabled] = useState<boolean>(
+		INITIAL.streakEnabled
+	);
+	const [streakBonusPerDay, setStreakBonusPerDay] = useState<number>(
+		INITIAL.streakBonusPerDay
+	);
+	const [streakBonusCap, setStreakBonusCap] = useState<number>(
+		INITIAL.streakBonusCap
+	);
 
 	// Sync server state once it loads; mirrors LevelingSettingsForm.
 	useEffect(() => {
@@ -70,6 +82,9 @@ export function CurrencySettingsForm({ guildId }: Props): ReactElement {
 		setEarnMax(data.earnMax);
 		setDailyAmount(data.dailyAmount);
 		setAllowPay(data.allowPay);
+		setStreakEnabled(data.streakEnabled);
+		setStreakBonusPerDay(data.streakBonusPerDay);
+		setStreakBonusCap(data.streakBonusCap);
 	}, [settings.data]);
 
 	// Soft client-side guard; BE remains the source of truth for hard validation.
@@ -86,6 +101,9 @@ export function CurrencySettingsForm({ guildId }: Props): ReactElement {
 				earnMax,
 				dailyAmount,
 				allowPay,
+				streakEnabled,
+				streakBonusPerDay,
+				streakBonusCap,
 			},
 			{
 				onSuccess: () => {
@@ -199,6 +217,58 @@ export function CurrencySettingsForm({ guildId }: Props): ReactElement {
 						}}
 					/>
 				</FormControl>
+			</Box>
+
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
+				<VStack align="stretch" spacing={4}>
+					<FormControl alignItems="center" display="flex">
+						<FormLabel mb={0}>Enable daily streak</FormLabel>
+						<Switch
+							isChecked={streakEnabled}
+							onChange={(event_: ChangeEvent<HTMLInputElement>) => {
+								setStreakEnabled(event_.target.checked);
+							}}
+						/>
+					</FormControl>
+					<HStack spacing={4}>
+						<FormControl>
+							<FormLabel>Streak bonus / day</FormLabel>
+							<NumberInput
+								min={0}
+								value={streakBonusPerDay}
+								onChange={(_, valueNumber: number) => {
+									setStreakBonusPerDay(
+										Number.isNaN(valueNumber) ? 0 : valueNumber
+									);
+								}}
+							>
+								<NumberInputField />
+								<NumberInputStepper>
+									<NumberIncrementStepper />
+									<NumberDecrementStepper />
+								</NumberInputStepper>
+							</NumberInput>
+						</FormControl>
+						<FormControl>
+							<FormLabel>Streak bonus cap</FormLabel>
+							<NumberInput
+								min={0}
+								value={streakBonusCap}
+								onChange={(_, valueNumber: number) => {
+									setStreakBonusCap(
+										Number.isNaN(valueNumber) ? 0 : valueNumber
+									);
+								}}
+							>
+								<NumberInputField />
+								<NumberInputStepper>
+									<NumberIncrementStepper />
+									<NumberDecrementStepper />
+								</NumberInputStepper>
+							</NumberInput>
+						</FormControl>
+					</HStack>
+				</VStack>
 			</Box>
 
 			<Divider />

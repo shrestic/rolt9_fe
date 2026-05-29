@@ -22,6 +22,13 @@ export const CurrencySettingsSchema = camelObject({
 	dailyAmount: z.number().int(),
 	// Whether members may transfer currency to each other (the "pay" command).
 	allowPay: z.boolean(),
+	// --- Streak ---
+	// Master toggle for the daily-claim streak chain.
+	streakEnabled: z.boolean(),
+	// Coins added per streak day (bonus = min(streak * perDay, cap)).
+	streakBonusPerDay: z.number().int(),
+	// Ceiling on the per-day streak bonus.
+	streakBonusCap: z.number().int(),
 });
 export type CurrencySettings = z.infer<typeof CurrencySettingsSchema>;
 export const toCurrencySettings = (raw: unknown): CurrencySettings =>
@@ -38,6 +45,9 @@ export type CurrencySettingsInput = {
 	earnMax: number;
 	dailyAmount: number;
 	allowPay: boolean;
+	streakEnabled: boolean;
+	streakBonusPerDay: number;
+	streakBonusCap: number;
 };
 
 // ---------------------------------------------------------------------------
