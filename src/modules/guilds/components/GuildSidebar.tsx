@@ -8,7 +8,7 @@ const ITEMS: Array<Item> = [
 	{ label: "Overview", to: "/dashboard/$guildId", enabled: true },
 	{ label: "Moderation", to: "/dashboard/$guildId/moderation", enabled: true },
 	{ label: "Commands", to: "/dashboard/$guildId/commands", enabled: true },
-	{ label: "Welcome", enabled: false },
+	{ label: "Welcome", to: "/dashboard/$guildId/welcome", enabled: true },
 	{ label: "Auto-mod", enabled: false },
 	{ label: "Reaction Roles", enabled: false },
 	{ label: "Logging", enabled: false },

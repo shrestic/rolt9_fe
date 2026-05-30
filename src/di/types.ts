@@ -10,6 +10,7 @@ import type { MinigameRepository } from "@/data/repositories/minigame.repository
 import type { ModerationRepository } from "@/data/repositories/moderation.repository";
 import type { PetRepository } from "@/data/repositories/pet.repository";
 import type { QuestsRepository } from "@/data/repositories/quests.repository";
+import type { WelcomeRepository } from "@/data/repositories/welcome.repository";
 
 export type Repositories = {
 	auth: AuthenticationRepository;
@@ -24,4 +25,5 @@ export type Repositories = {
 	karma: KarmaRepository;
 	minigame: MinigameRepository;
 	ai: AiRepository;
+	welcome: WelcomeRepository;
 };

@@ -19,6 +19,7 @@ import type { MinigameRepository } from "@/data/repositories/minigame.repository
 import type { ModerationRepository } from "@/data/repositories/moderation.repository";
 import type { PetRepository } from "@/data/repositories/pet.repository";
 import type { QuestsRepository } from "@/data/repositories/quests.repository";
+import type { WelcomeRepository } from "@/data/repositories/welcome.repository";
 
 const RepositoriesContext = createContext<Repositories | null>(null);
 
@@ -81,3 +82,6 @@ export const useMinigameRepository = (): MinigameRepository =>
 	useRepositories().minigame;
 // eslint-disable-next-line react-refresh/only-export-components
 export const useAiRepository = (): AiRepository => useRepositories().ai;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useWelcomeRepository = (): WelcomeRepository =>
+	useRepositories().welcome;

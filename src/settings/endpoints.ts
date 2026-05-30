@@ -39,4 +39,5 @@ export const endpoints = {
 	aiKb: (guildId: string) => `/guilds/${guildId}/ai/kb`,
 	aiKbEntry: (guildId: string, entryId: string) =>
 		`/guilds/${guildId}/ai/kb/${entryId}`,
+	welcomeSettings: (guildId: string) => `/guilds/${guildId}/welcome/settings`,
 } as const;
