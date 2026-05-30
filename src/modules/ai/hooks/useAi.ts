@@ -6,7 +6,12 @@ import {
 	type UseQueryResult,
 } from "@tanstack/react-query";
 import { useAiRepository } from "@/di/RepositoriesProvider";
-import type { AiSettings, AiSettingsInput } from "@/data/models/ai";
+import type {
+	AiSettings,
+	AiSettingsInput,
+	KbEntry,
+	KbEntryInput,
+} from "@/data/models/ai";
 
 // Reads the guild's AI settings (+ this month's usage). Briefly cached.
 export const useAiSettings = (guildId: string): UseQueryResult<AiSettings> => {
@@ -27,5 +32,38 @@ export const useUpdateAiSettings = (
 	return useMutation({
 		mutationFn: (input: AiSettingsInput) => repo.updateSettings(guildId, input),
 		onSuccess: (data) => qc.setQueryData(["ai-settings", guildId], data),
+	});
+};
+
+// Knowledge base for /ask.
+export const useKbEntries = (
+	guildId: string
+): UseQueryResult<Array<KbEntry>> => {
+	const repo = useAiRepository();
+	return useQuery({
+		queryKey: ["ai-kb", guildId],
+		queryFn: () => repo.listKb(guildId),
+	});
+};
+
+export const useCreateKbEntry = (
+	guildId: string
+): UseMutationResult<KbEntry, Error, KbEntryInput> => {
+	const repo = useAiRepository();
+	const qc = useQueryClient();
+	return useMutation({
+		mutationFn: (input: KbEntryInput) => repo.createKb(guildId, input),
+		onSuccess: () => qc.invalidateQueries({ queryKey: ["ai-kb", guildId] }),
+	});
+};
+
+export const useDeleteKbEntry = (
+	guildId: string
+): UseMutationResult<void, Error, string> => {
+	const repo = useAiRepository();
+	const qc = useQueryClient();
+	return useMutation({
+		mutationFn: (entryId: string) => repo.deleteKb(guildId, entryId),
+		onSuccess: () => qc.invalidateQueries({ queryKey: ["ai-kb", guildId] }),
 	});
 };

@@ -36,4 +36,7 @@ export const endpoints = {
 		`/guilds/${guildId}/karma/leaderboard`,
 	minigameSettings: (guildId: string) => `/guilds/${guildId}/minigame/settings`,
 	aiSettings: (guildId: string) => `/guilds/${guildId}/ai/settings`,
+	aiKb: (guildId: string) => `/guilds/${guildId}/ai/kb`,
+	aiKbEntry: (guildId: string, entryId: string) =>
+		`/guilds/${guildId}/ai/kb/${entryId}`,
 } as const;

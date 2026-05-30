@@ -11,6 +11,7 @@ import {
 	NumberInputStepper,
 	Switch,
 	Text,
+	Textarea,
 	useToast,
 	VStack,
 } from "@chakra-ui/react";
@@ -29,6 +30,7 @@ type Props = {
 const INITIAL = {
 	enabled: false,
 	monthlyTokenBudget: 100_000,
+	persona: "",
 };
 
 export function AiSettingsForm({ guildId }: Props): ReactElement {
@@ -40,6 +42,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 	const [monthlyTokenBudget, setMonthlyTokenBudget] = useState<number>(
 		INITIAL.monthlyTokenBudget
 	);
+	const [persona, setPersona] = useState<string>(INITIAL.persona);
 	const used = settings.data?.tokensUsedThisMonth ?? 0;
 
 	useEffect(() => {
@@ -47,11 +50,12 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 		if (!data) return;
 		setEnabled(data.enabled);
 		setMonthlyTokenBudget(data.monthlyTokenBudget);
+		setPersona(data.persona);
 	}, [settings.data]);
 
 	const save = (): void => {
 		update.mutate(
-			{ enabled, monthlyTokenBudget },
+			{ enabled, monthlyTokenBudget, persona },
 			{
 				onSuccess: () => {
 					toast({ status: "success", title: "Saved" });
@@ -99,6 +103,20 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 						{monthlyTokenBudget.toLocaleString()} token tháng này.
 					</Text>
 				</VStack>
+			</Box>
+
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
+				<FormControl>
+					<FormLabel>Bot persona (cá tính cho /chat)</FormLabel>
+					<Textarea
+						placeholder="VD: Bạn là một con mèo máy hài hước, nói trống không…"
+						rows={3}
+						value={persona}
+						onChange={(event_: ChangeEvent<HTMLTextAreaElement>) => {
+							setPersona(event_.target.value);
+						}}
+					/>
+				</FormControl>
 			</Box>
 
 			<Divider />
