@@ -6,6 +6,7 @@ import { makeCurrencyRemote } from "@/data/datasource/remote/currency.remote";
 import { makeGuildRemote } from "@/data/datasource/remote/guild.remote";
 import { makeKarmaRemote } from "@/data/datasource/remote/karma.remote";
 import { makeLevelingRemote } from "@/data/datasource/remote/leveling.remote";
+import { makeMinigameRemote } from "@/data/datasource/remote/minigame.remote";
 import { makeModerationRemote } from "@/data/datasource/remote/moderation.remote";
 import { makePetRemote } from "@/data/datasource/remote/pet.remote";
 import { makeQuestsRemote } from "@/data/datasource/remote/quests.remote";
@@ -16,6 +17,7 @@ import { makeCurrencyRepository } from "@/data/repositories/currency.repository"
 import { makeGuildRepository } from "@/data/repositories/guild.repository";
 import { makeKarmaRepository } from "@/data/repositories/karma.repository";
 import { makeLevelingRepository } from "@/data/repositories/leveling.repository";
+import { makeMinigameRepository } from "@/data/repositories/minigame.repository";
 import { makeModerationRepository } from "@/data/repositories/moderation.repository";
 import { makePetRepository } from "@/data/repositories/pet.repository";
 import { makeQuestsRepository } from "@/data/repositories/quests.repository";
@@ -32,6 +34,7 @@ export const createRepositories = (client = http): Repositories => {
 	const questsRemote = makeQuestsRemote(client);
 	const petRemote = makePetRemote(client);
 	const karmaRemote = makeKarmaRemote(client);
+	const minigameRemote = makeMinigameRemote(client);
 	return {
 		auth: makeAuthenticationRepository(authRemote),
 		guild: makeGuildRepository(guildRemote),
@@ -43,5 +46,6 @@ export const createRepositories = (client = http): Repositories => {
 		quests: makeQuestsRepository(questsRemote),
 		pet: makePetRepository(petRemote),
 		karma: makeKarmaRepository(karmaRemote),
+		minigame: makeMinigameRepository(minigameRemote),
 	};
 };

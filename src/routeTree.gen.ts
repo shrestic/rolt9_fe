@@ -17,6 +17,7 @@ import { Route as DashboardGuildIdIndexRouteImport } from './routes/dashboard.$g
 import { Route as DashboardGuildIdQuestsRouteImport } from './routes/dashboard.$guildId.quests'
 import { Route as DashboardGuildIdPetRouteImport } from './routes/dashboard.$guildId.pet'
 import { Route as DashboardGuildIdModerationRouteImport } from './routes/dashboard.$guildId.moderation'
+import { Route as DashboardGuildIdMinigamesRouteImport } from './routes/dashboard.$guildId.minigames'
 import { Route as DashboardGuildIdLevelingRouteImport } from './routes/dashboard.$guildId.leveling'
 import { Route as DashboardGuildIdKarmaRouteImport } from './routes/dashboard.$guildId.karma'
 import { Route as DashboardGuildIdCurrencyRouteImport } from './routes/dashboard.$guildId.currency'
@@ -64,6 +65,12 @@ const DashboardGuildIdModerationRoute =
     path: '/moderation',
     getParentRoute: () => DashboardGuildIdRoute,
   } as any)
+const DashboardGuildIdMinigamesRoute =
+  DashboardGuildIdMinigamesRouteImport.update({
+    id: '/minigames',
+    path: '/minigames',
+    getParentRoute: () => DashboardGuildIdRoute,
+  } as any)
 const DashboardGuildIdLevelingRoute =
   DashboardGuildIdLevelingRouteImport.update({
     id: '/leveling',
@@ -103,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
   '/dashboard/$guildId/karma': typeof DashboardGuildIdKarmaRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
+  '/dashboard/$guildId/minigames': typeof DashboardGuildIdMinigamesRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
   '/dashboard/$guildId/quests': typeof DashboardGuildIdQuestsRoute
@@ -116,6 +124,7 @@ export interface FileRoutesByTo {
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
   '/dashboard/$guildId/karma': typeof DashboardGuildIdKarmaRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
+  '/dashboard/$guildId/minigames': typeof DashboardGuildIdMinigamesRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
   '/dashboard/$guildId/quests': typeof DashboardGuildIdQuestsRoute
@@ -132,6 +141,7 @@ export interface FileRoutesById {
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
   '/dashboard/$guildId/karma': typeof DashboardGuildIdKarmaRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
+  '/dashboard/$guildId/minigames': typeof DashboardGuildIdMinigamesRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
   '/dashboard/$guildId/quests': typeof DashboardGuildIdQuestsRoute
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/currency'
     | '/dashboard/$guildId/karma'
     | '/dashboard/$guildId/leveling'
+    | '/dashboard/$guildId/minigames'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/pet'
     | '/dashboard/$guildId/quests'
@@ -162,6 +173,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/currency'
     | '/dashboard/$guildId/karma'
     | '/dashboard/$guildId/leveling'
+    | '/dashboard/$guildId/minigames'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/pet'
     | '/dashboard/$guildId/quests'
@@ -177,6 +189,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/currency'
     | '/dashboard/$guildId/karma'
     | '/dashboard/$guildId/leveling'
+    | '/dashboard/$guildId/minigames'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/pet'
     | '/dashboard/$guildId/quests'
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardGuildIdModerationRouteImport
       parentRoute: typeof DashboardGuildIdRoute
     }
+    '/dashboard/$guildId/minigames': {
+      id: '/dashboard/$guildId/minigames'
+      path: '/minigames'
+      fullPath: '/dashboard/$guildId/minigames'
+      preLoaderRoute: typeof DashboardGuildIdMinigamesRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
     '/dashboard/$guildId/leveling': {
       id: '/dashboard/$guildId/leveling'
       path: '/leveling'
@@ -290,6 +310,7 @@ interface DashboardGuildIdRouteChildren {
   DashboardGuildIdCurrencyRoute: typeof DashboardGuildIdCurrencyRoute
   DashboardGuildIdKarmaRoute: typeof DashboardGuildIdKarmaRoute
   DashboardGuildIdLevelingRoute: typeof DashboardGuildIdLevelingRoute
+  DashboardGuildIdMinigamesRoute: typeof DashboardGuildIdMinigamesRoute
   DashboardGuildIdModerationRoute: typeof DashboardGuildIdModerationRoute
   DashboardGuildIdPetRoute: typeof DashboardGuildIdPetRoute
   DashboardGuildIdQuestsRoute: typeof DashboardGuildIdQuestsRoute
@@ -302,6 +323,7 @@ const DashboardGuildIdRouteChildren: DashboardGuildIdRouteChildren = {
   DashboardGuildIdCurrencyRoute: DashboardGuildIdCurrencyRoute,
   DashboardGuildIdKarmaRoute: DashboardGuildIdKarmaRoute,
   DashboardGuildIdLevelingRoute: DashboardGuildIdLevelingRoute,
+  DashboardGuildIdMinigamesRoute: DashboardGuildIdMinigamesRoute,
   DashboardGuildIdModerationRoute: DashboardGuildIdModerationRoute,
   DashboardGuildIdPetRoute: DashboardGuildIdPetRoute,
   DashboardGuildIdQuestsRoute: DashboardGuildIdQuestsRoute,

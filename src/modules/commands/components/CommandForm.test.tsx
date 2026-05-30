@@ -66,6 +66,7 @@ const makeMockRepos = (): Repositories => ({
 	quests: {} as Repositories["quests"],
 	pet: {} as Repositories["pet"],
 	karma: {} as Repositories["karma"],
+	minigame: {} as Repositories["minigame"],
 });
 
 // Render CommandForm inside the providers it expects:

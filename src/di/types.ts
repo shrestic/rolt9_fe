@@ -5,6 +5,7 @@ import type { CurrencyRepository } from "@/data/repositories/currency.repository
 import type { GuildRepository } from "@/data/repositories/guild.repository";
 import type { KarmaRepository } from "@/data/repositories/karma.repository";
 import type { LevelingRepository } from "@/data/repositories/leveling.repository";
+import type { MinigameRepository } from "@/data/repositories/minigame.repository";
 import type { ModerationRepository } from "@/data/repositories/moderation.repository";
 import type { PetRepository } from "@/data/repositories/pet.repository";
 import type { QuestsRepository } from "@/data/repositories/quests.repository";
@@ -20,4 +21,5 @@ export type Repositories = {
 	quests: QuestsRepository;
 	pet: PetRepository;
 	karma: KarmaRepository;
+	minigame: MinigameRepository;
 };
