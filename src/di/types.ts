@@ -1,3 +1,4 @@
+import type { AiRepository } from "@/data/repositories/ai.repository";
 import type { AuthenticationRepository } from "@/data/repositories/authentication.repository";
 import type { BadgesRepository } from "@/data/repositories/badges.repository";
 import type { CommandRepository } from "@/data/repositories/command.repository";
@@ -22,4 +23,5 @@ export type Repositories = {
 	pet: PetRepository;
 	karma: KarmaRepository;
 	minigame: MinigameRepository;
+	ai: AiRepository;
 };

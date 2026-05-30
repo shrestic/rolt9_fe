@@ -7,6 +7,7 @@ import {
 } from "react";
 import { createRepositories } from "./repositories";
 import type { Repositories } from "./types";
+import type { AiRepository } from "@/data/repositories/ai.repository";
 import type { AuthenticationRepository } from "@/data/repositories/authentication.repository";
 import type { BadgesRepository } from "@/data/repositories/badges.repository";
 import type { CommandRepository } from "@/data/repositories/command.repository";
@@ -78,3 +79,5 @@ export const useKarmaRepository = (): KarmaRepository =>
 // eslint-disable-next-line react-refresh/only-export-components
 export const useMinigameRepository = (): MinigameRepository =>
 	useRepositories().minigame;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useAiRepository = (): AiRepository => useRepositories().ai;

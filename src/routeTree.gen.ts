@@ -23,6 +23,7 @@ import { Route as DashboardGuildIdKarmaRouteImport } from './routes/dashboard.$g
 import { Route as DashboardGuildIdCurrencyRouteImport } from './routes/dashboard.$guildId.currency'
 import { Route as DashboardGuildIdCommandsRouteImport } from './routes/dashboard.$guildId.commands'
 import { Route as DashboardGuildIdBadgesRouteImport } from './routes/dashboard.$guildId.badges'
+import { Route as DashboardGuildIdAiRouteImport } from './routes/dashboard.$guildId.ai'
 
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
@@ -99,12 +100,18 @@ const DashboardGuildIdBadgesRoute = DashboardGuildIdBadgesRouteImport.update({
   path: '/badges',
   getParentRoute: () => DashboardGuildIdRoute,
 } as any)
+const DashboardGuildIdAiRoute = DashboardGuildIdAiRouteImport.update({
+  id: '/ai',
+  path: '/ai',
+  getParentRoute: () => DashboardGuildIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/$guildId/ai': typeof DashboardGuildIdAiRoute
   '/dashboard/$guildId/badges': typeof DashboardGuildIdBadgesRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
@@ -119,6 +126,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardIndexRoute
+  '/dashboard/$guildId/ai': typeof DashboardGuildIdAiRoute
   '/dashboard/$guildId/badges': typeof DashboardGuildIdBadgesRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
@@ -136,6 +144,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRouteWithChildren
   '/dashboard/$guildId': typeof DashboardGuildIdRouteWithChildren
   '/dashboard/': typeof DashboardIndexRoute
+  '/dashboard/$guildId/ai': typeof DashboardGuildIdAiRoute
   '/dashboard/$guildId/badges': typeof DashboardGuildIdBadgesRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
@@ -154,6 +163,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/$guildId'
     | '/dashboard/'
+    | '/dashboard/$guildId/ai'
     | '/dashboard/$guildId/badges'
     | '/dashboard/$guildId/commands'
     | '/dashboard/$guildId/currency'
@@ -168,6 +178,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/dashboard'
+    | '/dashboard/$guildId/ai'
     | '/dashboard/$guildId/badges'
     | '/dashboard/$guildId/commands'
     | '/dashboard/$guildId/currency'
@@ -184,6 +195,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/dashboard/$guildId'
     | '/dashboard/'
+    | '/dashboard/$guildId/ai'
     | '/dashboard/$guildId/badges'
     | '/dashboard/$guildId/commands'
     | '/dashboard/$guildId/currency'
@@ -301,10 +313,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardGuildIdBadgesRouteImport
       parentRoute: typeof DashboardGuildIdRoute
     }
+    '/dashboard/$guildId/ai': {
+      id: '/dashboard/$guildId/ai'
+      path: '/ai'
+      fullPath: '/dashboard/$guildId/ai'
+      preLoaderRoute: typeof DashboardGuildIdAiRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
   }
 }
 
 interface DashboardGuildIdRouteChildren {
+  DashboardGuildIdAiRoute: typeof DashboardGuildIdAiRoute
   DashboardGuildIdBadgesRoute: typeof DashboardGuildIdBadgesRoute
   DashboardGuildIdCommandsRoute: typeof DashboardGuildIdCommandsRoute
   DashboardGuildIdCurrencyRoute: typeof DashboardGuildIdCurrencyRoute
@@ -318,6 +338,7 @@ interface DashboardGuildIdRouteChildren {
 }
 
 const DashboardGuildIdRouteChildren: DashboardGuildIdRouteChildren = {
+  DashboardGuildIdAiRoute: DashboardGuildIdAiRoute,
   DashboardGuildIdBadgesRoute: DashboardGuildIdBadgesRoute,
   DashboardGuildIdCommandsRoute: DashboardGuildIdCommandsRoute,
   DashboardGuildIdCurrencyRoute: DashboardGuildIdCurrencyRoute,

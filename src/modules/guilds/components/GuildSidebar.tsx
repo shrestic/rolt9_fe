@@ -19,6 +19,7 @@ const ITEMS: Array<Item> = [
 	{ label: "Quests", to: "/dashboard/$guildId/quests", enabled: true },
 	{ label: "Badges", to: "/dashboard/$guildId/badges", enabled: true },
 	{ label: "Mini-games", to: "/dashboard/$guildId/minigames", enabled: true },
+	{ label: "AI", to: "/dashboard/$guildId/ai", enabled: true },
 ];
 
 export const GuildSidebar = ({
