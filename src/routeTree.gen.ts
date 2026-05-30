@@ -15,6 +15,7 @@ import { Route as DashboardIndexRouteImport } from './routes/dashboard.index'
 import { Route as DashboardGuildIdRouteImport } from './routes/dashboard.$guildId'
 import { Route as DashboardGuildIdIndexRouteImport } from './routes/dashboard.$guildId.index'
 import { Route as DashboardGuildIdQuestsRouteImport } from './routes/dashboard.$guildId.quests'
+import { Route as DashboardGuildIdPetRouteImport } from './routes/dashboard.$guildId.pet'
 import { Route as DashboardGuildIdModerationRouteImport } from './routes/dashboard.$guildId.moderation'
 import { Route as DashboardGuildIdLevelingRouteImport } from './routes/dashboard.$guildId.leveling'
 import { Route as DashboardGuildIdCurrencyRouteImport } from './routes/dashboard.$guildId.currency'
@@ -49,6 +50,11 @@ const DashboardGuildIdIndexRoute = DashboardGuildIdIndexRouteImport.update({
 const DashboardGuildIdQuestsRoute = DashboardGuildIdQuestsRouteImport.update({
   id: '/quests',
   path: '/quests',
+  getParentRoute: () => DashboardGuildIdRoute,
+} as any)
+const DashboardGuildIdPetRoute = DashboardGuildIdPetRouteImport.update({
+  id: '/pet',
+  path: '/pet',
   getParentRoute: () => DashboardGuildIdRoute,
 } as any)
 const DashboardGuildIdModerationRoute =
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
+  '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
   '/dashboard/$guildId/quests': typeof DashboardGuildIdQuestsRoute
   '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
 }
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
+  '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
   '/dashboard/$guildId/quests': typeof DashboardGuildIdQuestsRoute
   '/dashboard/$guildId': typeof DashboardGuildIdIndexRoute
 }
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
+  '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
   '/dashboard/$guildId/quests': typeof DashboardGuildIdQuestsRoute
   '/dashboard/$guildId/': typeof DashboardGuildIdIndexRoute
 }
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/currency'
     | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
+    | '/dashboard/$guildId/pet'
     | '/dashboard/$guildId/quests'
     | '/dashboard/$guildId/'
   fileRoutesByTo: FileRoutesByTo
@@ -142,6 +152,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/currency'
     | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
+    | '/dashboard/$guildId/pet'
     | '/dashboard/$guildId/quests'
     | '/dashboard/$guildId'
   id:
@@ -155,6 +166,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/currency'
     | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
+    | '/dashboard/$guildId/pet'
     | '/dashboard/$guildId/quests'
     | '/dashboard/$guildId/'
   fileRoutesById: FileRoutesById
@@ -208,6 +220,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardGuildIdQuestsRouteImport
       parentRoute: typeof DashboardGuildIdRoute
     }
+    '/dashboard/$guildId/pet': {
+      id: '/dashboard/$guildId/pet'
+      path: '/pet'
+      fullPath: '/dashboard/$guildId/pet'
+      preLoaderRoute: typeof DashboardGuildIdPetRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
     '/dashboard/$guildId/moderation': {
       id: '/dashboard/$guildId/moderation'
       path: '/moderation'
@@ -252,6 +271,7 @@ interface DashboardGuildIdRouteChildren {
   DashboardGuildIdCurrencyRoute: typeof DashboardGuildIdCurrencyRoute
   DashboardGuildIdLevelingRoute: typeof DashboardGuildIdLevelingRoute
   DashboardGuildIdModerationRoute: typeof DashboardGuildIdModerationRoute
+  DashboardGuildIdPetRoute: typeof DashboardGuildIdPetRoute
   DashboardGuildIdQuestsRoute: typeof DashboardGuildIdQuestsRoute
   DashboardGuildIdIndexRoute: typeof DashboardGuildIdIndexRoute
 }
@@ -262,6 +282,7 @@ const DashboardGuildIdRouteChildren: DashboardGuildIdRouteChildren = {
   DashboardGuildIdCurrencyRoute: DashboardGuildIdCurrencyRoute,
   DashboardGuildIdLevelingRoute: DashboardGuildIdLevelingRoute,
   DashboardGuildIdModerationRoute: DashboardGuildIdModerationRoute,
+  DashboardGuildIdPetRoute: DashboardGuildIdPetRoute,
   DashboardGuildIdQuestsRoute: DashboardGuildIdQuestsRoute,
   DashboardGuildIdIndexRoute: DashboardGuildIdIndexRoute,
 }

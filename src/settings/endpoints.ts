@@ -29,4 +29,6 @@ export const endpoints = {
 	quests: (guildId: string) => `/guilds/${guildId}/quests`,
 	quest: (guildId: string, questId: string) =>
 		`/guilds/${guildId}/quests/${questId}`,
+	petSettings: (guildId: string) => `/guilds/${guildId}/pet/settings`,
+	petStatus: (guildId: string) => `/guilds/${guildId}/pet/status`,
 } as const;
