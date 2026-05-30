@@ -14,6 +14,7 @@ import type { CurrencyRepository } from "@/data/repositories/currency.repository
 import type { GuildRepository } from "@/data/repositories/guild.repository";
 import type { LevelingRepository } from "@/data/repositories/leveling.repository";
 import type { ModerationRepository } from "@/data/repositories/moderation.repository";
+import type { QuestsRepository } from "@/data/repositories/quests.repository";
 
 const RepositoriesContext = createContext<Repositories | null>(null);
 
@@ -62,3 +63,6 @@ export const useCurrencyRepository = (): CurrencyRepository =>
 // eslint-disable-next-line react-refresh/only-export-components
 export const useBadgeRepository = (): BadgesRepository =>
 	useRepositories().badges;
+// eslint-disable-next-line react-refresh/only-export-components
+export const useQuestsRepository = (): QuestsRepository =>
+	useRepositories().quests;
