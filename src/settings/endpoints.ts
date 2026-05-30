@@ -31,4 +31,7 @@ export const endpoints = {
 		`/guilds/${guildId}/quests/${questId}`,
 	petSettings: (guildId: string) => `/guilds/${guildId}/pet/settings`,
 	petStatus: (guildId: string) => `/guilds/${guildId}/pet/status`,
+	karmaSettings: (guildId: string) => `/guilds/${guildId}/karma/settings`,
+	karmaLeaderboard: (guildId: string) =>
+		`/guilds/${guildId}/karma/leaderboard`,
 } as const;

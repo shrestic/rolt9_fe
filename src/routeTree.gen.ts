@@ -18,6 +18,7 @@ import { Route as DashboardGuildIdQuestsRouteImport } from './routes/dashboard.$
 import { Route as DashboardGuildIdPetRouteImport } from './routes/dashboard.$guildId.pet'
 import { Route as DashboardGuildIdModerationRouteImport } from './routes/dashboard.$guildId.moderation'
 import { Route as DashboardGuildIdLevelingRouteImport } from './routes/dashboard.$guildId.leveling'
+import { Route as DashboardGuildIdKarmaRouteImport } from './routes/dashboard.$guildId.karma'
 import { Route as DashboardGuildIdCurrencyRouteImport } from './routes/dashboard.$guildId.currency'
 import { Route as DashboardGuildIdCommandsRouteImport } from './routes/dashboard.$guildId.commands'
 import { Route as DashboardGuildIdBadgesRouteImport } from './routes/dashboard.$guildId.badges'
@@ -69,6 +70,11 @@ const DashboardGuildIdLevelingRoute =
     path: '/leveling',
     getParentRoute: () => DashboardGuildIdRoute,
   } as any)
+const DashboardGuildIdKarmaRoute = DashboardGuildIdKarmaRouteImport.update({
+  id: '/karma',
+  path: '/karma',
+  getParentRoute: () => DashboardGuildIdRoute,
+} as any)
 const DashboardGuildIdCurrencyRoute =
   DashboardGuildIdCurrencyRouteImport.update({
     id: '/currency',
@@ -95,6 +101,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/$guildId/badges': typeof DashboardGuildIdBadgesRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
+  '/dashboard/$guildId/karma': typeof DashboardGuildIdKarmaRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/dashboard/$guildId/badges': typeof DashboardGuildIdBadgesRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
+  '/dashboard/$guildId/karma': typeof DashboardGuildIdKarmaRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/dashboard/$guildId/badges': typeof DashboardGuildIdBadgesRoute
   '/dashboard/$guildId/commands': typeof DashboardGuildIdCommandsRoute
   '/dashboard/$guildId/currency': typeof DashboardGuildIdCurrencyRoute
+  '/dashboard/$guildId/karma': typeof DashboardGuildIdKarmaRoute
   '/dashboard/$guildId/leveling': typeof DashboardGuildIdLevelingRoute
   '/dashboard/$guildId/moderation': typeof DashboardGuildIdModerationRoute
   '/dashboard/$guildId/pet': typeof DashboardGuildIdPetRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/badges'
     | '/dashboard/$guildId/commands'
     | '/dashboard/$guildId/currency'
+    | '/dashboard/$guildId/karma'
     | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/pet'
@@ -150,6 +160,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/badges'
     | '/dashboard/$guildId/commands'
     | '/dashboard/$guildId/currency'
+    | '/dashboard/$guildId/karma'
     | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/pet'
@@ -164,6 +175,7 @@ export interface FileRouteTypes {
     | '/dashboard/$guildId/badges'
     | '/dashboard/$guildId/commands'
     | '/dashboard/$guildId/currency'
+    | '/dashboard/$guildId/karma'
     | '/dashboard/$guildId/leveling'
     | '/dashboard/$guildId/moderation'
     | '/dashboard/$guildId/pet'
@@ -241,6 +253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardGuildIdLevelingRouteImport
       parentRoute: typeof DashboardGuildIdRoute
     }
+    '/dashboard/$guildId/karma': {
+      id: '/dashboard/$guildId/karma'
+      path: '/karma'
+      fullPath: '/dashboard/$guildId/karma'
+      preLoaderRoute: typeof DashboardGuildIdKarmaRouteImport
+      parentRoute: typeof DashboardGuildIdRoute
+    }
     '/dashboard/$guildId/currency': {
       id: '/dashboard/$guildId/currency'
       path: '/currency'
@@ -269,6 +288,7 @@ interface DashboardGuildIdRouteChildren {
   DashboardGuildIdBadgesRoute: typeof DashboardGuildIdBadgesRoute
   DashboardGuildIdCommandsRoute: typeof DashboardGuildIdCommandsRoute
   DashboardGuildIdCurrencyRoute: typeof DashboardGuildIdCurrencyRoute
+  DashboardGuildIdKarmaRoute: typeof DashboardGuildIdKarmaRoute
   DashboardGuildIdLevelingRoute: typeof DashboardGuildIdLevelingRoute
   DashboardGuildIdModerationRoute: typeof DashboardGuildIdModerationRoute
   DashboardGuildIdPetRoute: typeof DashboardGuildIdPetRoute
@@ -280,6 +300,7 @@ const DashboardGuildIdRouteChildren: DashboardGuildIdRouteChildren = {
   DashboardGuildIdBadgesRoute: DashboardGuildIdBadgesRoute,
   DashboardGuildIdCommandsRoute: DashboardGuildIdCommandsRoute,
   DashboardGuildIdCurrencyRoute: DashboardGuildIdCurrencyRoute,
+  DashboardGuildIdKarmaRoute: DashboardGuildIdKarmaRoute,
   DashboardGuildIdLevelingRoute: DashboardGuildIdLevelingRoute,
   DashboardGuildIdModerationRoute: DashboardGuildIdModerationRoute,
   DashboardGuildIdPetRoute: DashboardGuildIdPetRoute,

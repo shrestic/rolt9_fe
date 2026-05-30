@@ -14,6 +14,7 @@ const ITEMS: Array<Item> = [
 	{ label: "Logging", enabled: false },
 	{ label: "Leveling", to: "/dashboard/$guildId/leveling", enabled: true },
 	{ label: "Currency", to: "/dashboard/$guildId/currency", enabled: true },
+	{ label: "Karma", to: "/dashboard/$guildId/karma", enabled: true },
 	{ label: "Pet", to: "/dashboard/$guildId/pet", enabled: true },
 	{ label: "Quests", to: "/dashboard/$guildId/quests", enabled: true },
 	{ label: "Badges", to: "/dashboard/$guildId/badges", enabled: true },
