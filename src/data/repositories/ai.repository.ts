@@ -28,7 +28,7 @@ export const makeAiRepository = (remote: AiRemoteDataSource): AiRepository => ({
 	listKb: async (guildId) => toKbEntries(await remote.listKb(guildId)),
 	createKb: async (guildId, input) =>
 		toKbEntry(await remote.createKb(guildId, input)),
-	deleteKb: async (guildId, entryId) => {
+	deleteKb: async (guildId, entryId): Promise<void> => {
 		await remote.deleteKb(guildId, entryId);
 	},
 });
