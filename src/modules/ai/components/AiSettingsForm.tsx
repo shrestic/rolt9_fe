@@ -24,6 +24,7 @@ import {
 	type ChangeEvent,
 	type ReactElement,
 } from "react";
+import { useGuildOverview } from "@/modules/guilds/hooks/useGuildOverview";
 import {
 	useAiCatalog,
 	useAiSettings,
@@ -55,8 +56,13 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 		INITIAL.monthlyBudgetUsd
 	);
 	const [persona, setPersona] = useState<string>(INITIAL.persona);
+	const [agentEnabled, setAgentEnabled] = useState<boolean>(false);
+	const [agentChannelId, setAgentChannelId] = useState<string>("");
 	// apiKey: undefined = chưa gõ gì (giữ key cũ); "" sau khi gõ rồi xóa = đặt rỗng.
 	const [apiKey, setApiKey] = useState<string>("");
+
+	const overview = useGuildOverview(guildId);
+	const channels = overview.data?.channels ?? [];
 
 	const hasKey = settings.data?.hasKey ?? false;
 	const keyHint = settings.data?.keyHint ?? "";
@@ -74,6 +80,8 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 		setModel(data.model);
 		setMonthlyBudgetUsd(data.monthlyBudgetUsd);
 		setPersona(data.persona);
+		setAgentEnabled(data.agentEnabled);
+		setAgentChannelId(data.agentChannelId ?? "");
 	}, [settings.data]);
 
 	const save = (): void => {
@@ -84,6 +92,8 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 				model,
 				monthlyBudgetUsd,
 				persona,
+				agentEnabled,
+				agentChannelId: agentChannelId || null,
 				// Chỉ gửi apiKey khi người dùng đã gõ (khác "") — tránh xóa key vô ý.
 				...(apiKey !== "" ? { apiKey } : {}),
 			},
@@ -99,7 +109,16 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 	const clearKey = (): void => {
 		// Gửi apiKey="" tường minh để xóa key đã lưu trên server.
 		update.mutate(
-			{ enabled, provider, model, monthlyBudgetUsd, persona, apiKey: "" },
+			{
+				enabled,
+				provider,
+				model,
+				monthlyBudgetUsd,
+				persona,
+				agentEnabled,
+				agentChannelId: agentChannelId || null,
+				apiKey: "",
+			},
 			{
 				onSuccess: () => {
 					setApiKey("");
@@ -232,6 +251,36 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 						}}
 					/>
 				</FormControl>
+			</Box>
+
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
+				<VStack align="stretch" spacing={4}>
+					<FormControl alignItems="center" display="flex">
+						<FormLabel mb={0}>Claw agent (chat @mention + nhớ)</FormLabel>
+						<Switch
+							isChecked={agentEnabled}
+							onChange={(event_: ChangeEvent<HTMLInputElement>) => {
+								setAgentEnabled(event_.target.checked);
+							}}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel>Kênh agent (trống = mọi kênh)</FormLabel>
+						<Select
+							placeholder="Mọi kênh"
+							value={agentChannelId}
+							onChange={(event_: ChangeEvent<HTMLSelectElement>) => {
+								setAgentChannelId(event_.target.value);
+							}}
+						>
+							{channels.map((c) => (
+								<option key={c.id} value={c.id}>
+									#{c.name}
+								</option>
+							))}
+						</Select>
+					</FormControl>
+				</VStack>
 			</Box>
 
 			<Divider />
