@@ -59,6 +59,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 	const [agentEnabled, setAgentEnabled] = useState<boolean>(false);
 	const [agentChannelId, setAgentChannelId] = useState<string>("");
 	const [toolsEnabled, setToolsEnabled] = useState<boolean>(true);
+	const [actionsEnabled, setActionsEnabled] = useState<boolean>(false);
 	// apiKey: undefined = chưa gõ gì (giữ key cũ); "" sau khi gõ rồi xóa = đặt rỗng.
 	const [apiKey, setApiKey] = useState<string>("");
 
@@ -84,6 +85,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 		setAgentEnabled(data.agentEnabled);
 		setAgentChannelId(data.agentChannelId ?? "");
 		setToolsEnabled(data.toolsEnabled);
+		setActionsEnabled(data.actionsEnabled);
 	}, [settings.data]);
 
 	const save = (): void => {
@@ -97,6 +99,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 				agentEnabled,
 				agentChannelId: agentChannelId || null,
 				toolsEnabled,
+				actionsEnabled,
 				// Chỉ gửi apiKey khi người dùng đã gõ (khác "") — tránh xóa key vô ý.
 				...(apiKey !== "" ? { apiKey } : {}),
 			},
@@ -121,6 +124,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 				agentEnabled,
 				agentChannelId: agentChannelId || null,
 				toolsEnabled,
+				actionsEnabled,
 				apiKey: "",
 			},
 			{
@@ -292,6 +296,21 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 								setToolsEnabled(event_.target.checked);
 							}}
 						/>
+					</FormControl>
+					<FormControl>
+						<FormControl alignItems="center" display="flex" mb={1}>
+							<FormLabel mb={0}>Agent actions (role/mod/config)</FormLabel>
+							<Switch
+								isChecked={actionsEnabled}
+								onChange={(event_: ChangeEvent<HTMLInputElement>) => {
+									setActionsEnabled(event_.target.checked);
+								}}
+							/>
+						</FormControl>
+						<Text color="fg.muted" fontSize="xs">
+							Cho bot tạo/xóa role, kick/ban, bật/tắt plugin theo lệnh admin
+							(đúng quyền). Hành động phá cần bấm xác nhận.
+						</Text>
 					</FormControl>
 				</VStack>
 			</Box>
