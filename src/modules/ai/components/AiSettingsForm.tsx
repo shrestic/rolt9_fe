@@ -4,11 +4,14 @@ import {
 	Divider,
 	FormControl,
 	FormLabel,
+	HStack,
+	Input,
 	NumberDecrementStepper,
 	NumberIncrementStepper,
 	NumberInput,
 	NumberInputField,
 	NumberInputStepper,
+	Select,
 	Switch,
 	Text,
 	Textarea,
@@ -21,7 +24,11 @@ import {
 	type ChangeEvent,
 	type ReactElement,
 } from "react";
-import { useAiSettings, useUpdateAiSettings } from "@/modules/ai/hooks/useAi";
+import {
+	useAiCatalog,
+	useAiSettings,
+	useUpdateAiSettings,
+} from "@/modules/ai/hooks/useAi";
 
 type Props = {
 	guildId: string;
@@ -29,36 +36,74 @@ type Props = {
 
 const INITIAL = {
 	enabled: false,
-	monthlyTokenBudget: 100_000,
+	provider: "",
+	model: "",
+	monthlyBudgetUsd: 5,
 	persona: "",
 };
 
 export function AiSettingsForm({ guildId }: Props): ReactElement {
 	const settings = useAiSettings(guildId);
+	const catalog = useAiCatalog();
 	const update = useUpdateAiSettings(guildId);
 	const toast = useToast();
 
 	const [enabled, setEnabled] = useState<boolean>(INITIAL.enabled);
-	const [monthlyTokenBudget, setMonthlyTokenBudget] = useState<number>(
-		INITIAL.monthlyTokenBudget
+	const [provider, setProvider] = useState<string>(INITIAL.provider);
+	const [model, setModel] = useState<string>(INITIAL.model);
+	const [monthlyBudgetUsd, setMonthlyBudgetUsd] = useState<number>(
+		INITIAL.monthlyBudgetUsd
 	);
 	const [persona, setPersona] = useState<string>(INITIAL.persona);
-	const used = settings.data?.tokensUsedThisMonth ?? 0;
+	// apiKey: undefined = chưa gõ gì (giữ key cũ); "" sau khi gõ rồi xóa = đặt rỗng.
+	const [apiKey, setApiKey] = useState<string>("");
+
+	const hasKey = settings.data?.hasKey ?? false;
+	const keyHint = settings.data?.keyHint ?? "";
+	const tokensUsed = settings.data?.tokensUsedThisMonth ?? 0;
+	const costUsed = settings.data?.costUsedThisMonth ?? 0;
+
+	const providers = catalog.data ?? {};
+	const models = provider ? (providers[provider]?.models ?? []) : [];
 
 	useEffect(() => {
 		const data = settings.data;
 		if (!data) return;
 		setEnabled(data.enabled);
-		setMonthlyTokenBudget(data.monthlyTokenBudget);
+		setProvider(data.provider);
+		setModel(data.model);
+		setMonthlyBudgetUsd(data.monthlyBudgetUsd);
 		setPersona(data.persona);
 	}, [settings.data]);
 
 	const save = (): void => {
 		update.mutate(
-			{ enabled, monthlyTokenBudget, persona },
+			{
+				enabled,
+				provider,
+				model,
+				monthlyBudgetUsd,
+				persona,
+				// Chỉ gửi apiKey khi người dùng đã gõ (khác "") — tránh xóa key vô ý.
+				...(apiKey !== "" ? { apiKey } : {}),
+			},
 			{
 				onSuccess: () => {
+					setApiKey("");
 					toast({ status: "success", title: "Saved" });
+				},
+			}
+		);
+	};
+
+	const clearKey = (): void => {
+		// Gửi apiKey="" tường minh để xóa key đã lưu trên server.
+		update.mutate(
+			{ enabled, provider, model, monthlyBudgetUsd, persona, apiKey: "" },
+			{
+				onSuccess: () => {
+					setApiKey("");
+					toast({ status: "success", title: "Đã xóa API key" });
 				},
 			}
 		);
@@ -81,12 +126,82 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
 				<VStack align="stretch" spacing={4}>
 					<FormControl>
-						<FormLabel>Monthly token budget</FormLabel>
+						<FormLabel>Provider</FormLabel>
+						<Select
+							placeholder="Chọn provider…"
+							value={provider}
+							onChange={(event_: ChangeEvent<HTMLSelectElement>) => {
+								setProvider(event_.target.value);
+								setModel(""); // đổi provider thì reset model
+							}}
+						>
+							{Object.entries(providers).map(([key, p]) => (
+								<option key={key} value={key}>
+									{p.label}
+								</option>
+							))}
+						</Select>
+					</FormControl>
+
+					<FormControl>
+						<FormLabel>Model</FormLabel>
+						<Select
+							isDisabled={!provider}
+							placeholder="Chọn model…"
+							value={model}
+							onChange={(event_: ChangeEvent<HTMLSelectElement>) => {
+								setModel(event_.target.value);
+							}}
+						>
+							{models.map((m) => (
+								<option key={m} value={m}>
+									{m}
+								</option>
+							))}
+						</Select>
+					</FormControl>
+
+					<FormControl>
+						<FormLabel>API key (của server bạn)</FormLabel>
+						<HStack>
+							<Input
+								type="password"
+								value={apiKey}
+								placeholder={
+									hasKey ? `••••••••${keyHint}` : "Nhập API key…"
+								}
+								onChange={(event_: ChangeEvent<HTMLInputElement>) => {
+									setApiKey(event_.target.value);
+								}}
+							/>
+							{hasKey ? (
+								<Button
+									isLoading={update.isPending}
+									variant="outline"
+									onClick={clearKey}
+								>
+									Xóa key
+								</Button>
+							) : null}
+						</HStack>
+						<Text color="fg.muted" fontSize="xs" mt={1}>
+							Để trống = giữ key hiện tại. Key được mã hóa, không bao giờ
+							hiển thị lại.
+						</Text>
+					</FormControl>
+				</VStack>
+			</Box>
+
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
+				<VStack align="stretch" spacing={4}>
+					<FormControl>
+						<FormLabel>Ngân sách USD / tháng</FormLabel>
 						<NumberInput
 							min={0}
-							value={monthlyTokenBudget}
+							precision={2}
+							value={monthlyBudgetUsd}
 							onChange={(_, valueNumber: number) => {
-								setMonthlyTokenBudget(
+								setMonthlyBudgetUsd(
 									Number.isNaN(valueNumber) ? 0 : valueNumber
 								);
 							}}
@@ -99,8 +214,8 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 						</NumberInput>
 					</FormControl>
 					<Text color="fg.muted" fontSize="sm">
-						Đã dùng {used.toLocaleString()} /{" "}
-						{monthlyTokenBudget.toLocaleString()} token tháng này.
+						Tháng này: {tokensUsed.toLocaleString()} token ≈ $
+						{costUsed.toFixed(4)} / ${monthlyBudgetUsd.toFixed(2)} budget.
 					</Text>
 				</VStack>
 			</Box>

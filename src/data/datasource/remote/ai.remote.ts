@@ -7,6 +7,7 @@ import type { AiSettingsInput, KbEntryInput } from "@/data/models/ai";
 export type AiRemoteDataSource = {
 	getSettings: (guildId: string) => Promise<unknown>;
 	updateSettings: (guildId: string, input: AiSettingsInput) => Promise<unknown>;
+	getCatalog: () => Promise<unknown>;
 	listKb: (guildId: string) => Promise<unknown>;
 	createKb: (guildId: string, input: KbEntryInput) => Promise<unknown>;
 	deleteKb: (guildId: string, entryId: string) => Promise<unknown>;
@@ -18,6 +19,7 @@ export const makeAiRemote = (client = http): AiRemoteDataSource => ({
 	updateSettings: async (guildId, input) =>
 		(await client.put(endpoints.aiSettings(guildId), objectToSnake(input)))
 			.data as unknown,
+	getCatalog: async () => (await client.get(endpoints.aiCatalog())).data as unknown,
 	listKb: async (guildId) =>
 		(await client.get(endpoints.aiKb(guildId))).data as unknown,
 	createKb: async (guildId, input) =>

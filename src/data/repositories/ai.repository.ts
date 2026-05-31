@@ -1,8 +1,10 @@
 import type { AiRemoteDataSource } from "@/data/datasource/remote/ai.remote";
 import {
+	toAiCatalog,
 	toAiSettings,
 	toKbEntries,
 	toKbEntry,
+	type AiCatalog,
 	type AiSettings,
 	type AiSettingsInput,
 	type KbEntry,
@@ -16,6 +18,7 @@ export type AiRepository = {
 		guildId: string,
 		input: AiSettingsInput
 	) => Promise<AiSettings>;
+	getCatalog: () => Promise<AiCatalog>;
 	listKb: (guildId: string) => Promise<Array<KbEntry>>;
 	createKb: (guildId: string, input: KbEntryInput) => Promise<KbEntry>;
 	deleteKb: (guildId: string, entryId: string) => Promise<void>;
@@ -25,6 +28,7 @@ export const makeAiRepository = (remote: AiRemoteDataSource): AiRepository => ({
 	getSettings: async (guildId) => toAiSettings(await remote.getSettings(guildId)),
 	updateSettings: async (guildId, input) =>
 		toAiSettings(await remote.updateSettings(guildId, input)),
+	getCatalog: async () => toAiCatalog(await remote.getCatalog()),
 	listKb: async (guildId) => toKbEntries(await remote.listKb(guildId)),
 	createKb: async (guildId, input) =>
 		toKbEntry(await remote.createKb(guildId, input)),

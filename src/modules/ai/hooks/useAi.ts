@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query";
 import { useAiRepository } from "@/di/RepositoriesProvider";
 import type {
+	AiCatalog,
 	AiSettings,
 	AiSettingsInput,
 	KbEntry,
@@ -20,6 +21,16 @@ export const useAiSettings = (guildId: string): UseQueryResult<AiSettings> => {
 		queryKey: ["ai-settings", guildId],
 		queryFn: () => repo.getSettings(guildId),
 		staleTime: 30 * 1000,
+	});
+};
+
+// Whitelist provider/model cho dropdown — gần như tĩnh nên cache lâu.
+export const useAiCatalog = (): UseQueryResult<AiCatalog> => {
+	const repo = useAiRepository();
+	return useQuery({
+		queryKey: ["ai-catalog"],
+		queryFn: () => repo.getCatalog(),
+		staleTime: Infinity,
 	});
 };
 
