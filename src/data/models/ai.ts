@@ -12,6 +12,7 @@ export const AiSettingsSchema = camelObject({
 	persona: z.string(),
 	agentEnabled: z.boolean(),
 	agentChannelId: z.string().nullable(),
+	toolsEnabled: z.boolean(),
 	hasKey: z.boolean(),
 	keyHint: z.string(),
 	tokensUsedThisMonth: z.number().int(),
@@ -29,6 +30,7 @@ export type AiSettingsInput = {
 	persona: string;
 	agentEnabled: boolean;
 	agentChannelId: string | null;
+	toolsEnabled: boolean;
 	apiKey?: string;
 };
 

@@ -58,6 +58,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 	const [persona, setPersona] = useState<string>(INITIAL.persona);
 	const [agentEnabled, setAgentEnabled] = useState<boolean>(false);
 	const [agentChannelId, setAgentChannelId] = useState<string>("");
+	const [toolsEnabled, setToolsEnabled] = useState<boolean>(true);
 	// apiKey: undefined = chưa gõ gì (giữ key cũ); "" sau khi gõ rồi xóa = đặt rỗng.
 	const [apiKey, setApiKey] = useState<string>("");
 
@@ -82,6 +83,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 		setPersona(data.persona);
 		setAgentEnabled(data.agentEnabled);
 		setAgentChannelId(data.agentChannelId ?? "");
+		setToolsEnabled(data.toolsEnabled);
 	}, [settings.data]);
 
 	const save = (): void => {
@@ -94,6 +96,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 				persona,
 				agentEnabled,
 				agentChannelId: agentChannelId || null,
+				toolsEnabled,
 				// Chỉ gửi apiKey khi người dùng đã gõ (khác "") — tránh xóa key vô ý.
 				...(apiKey !== "" ? { apiKey } : {}),
 			},
@@ -117,6 +120,7 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 				persona,
 				agentEnabled,
 				agentChannelId: agentChannelId || null,
+				toolsEnabled,
 				apiKey: "",
 			},
 			{
@@ -279,6 +283,15 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 								</option>
 							))}
 						</Select>
+					</FormControl>
+					<FormControl alignItems="center" display="flex">
+						<FormLabel mb={0}>Tools (web search + tra cứu)</FormLabel>
+						<Switch
+							isChecked={toolsEnabled}
+							onChange={(event_: ChangeEvent<HTMLInputElement>) => {
+								setToolsEnabled(event_.target.checked);
+							}}
+						/>
 					</FormControl>
 				</VStack>
 			</Box>
