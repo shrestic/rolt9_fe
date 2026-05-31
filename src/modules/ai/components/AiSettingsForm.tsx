@@ -60,6 +60,9 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 	const [agentChannelId, setAgentChannelId] = useState<string>("");
 	const [toolsEnabled, setToolsEnabled] = useState<boolean>(true);
 	const [actionsEnabled, setActionsEnabled] = useState<boolean>(false);
+	const [companionEnabled, setCompanionEnabled] = useState<boolean>(false);
+	const [companionChannelId, setCompanionChannelId] = useState<string>("");
+	const [companionCooldownMin, setCompanionCooldownMin] = useState<number>(45);
 	// apiKey: undefined = chưa gõ gì (giữ key cũ); "" sau khi gõ rồi xóa = đặt rỗng.
 	const [apiKey, setApiKey] = useState<string>("");
 
@@ -86,6 +89,9 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 		setAgentChannelId(data.agentChannelId ?? "");
 		setToolsEnabled(data.toolsEnabled);
 		setActionsEnabled(data.actionsEnabled);
+		setCompanionEnabled(data.companionEnabled);
+		setCompanionChannelId(data.companionChannelId ?? "");
+		setCompanionCooldownMin(data.companionCooldownMin);
 	}, [settings.data]);
 
 	const save = (): void => {
@@ -100,6 +106,9 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 				agentChannelId: agentChannelId || null,
 				toolsEnabled,
 				actionsEnabled,
+				companionEnabled,
+				companionChannelId: companionChannelId || null,
+				companionCooldownMin,
 				// Chỉ gửi apiKey khi người dùng đã gõ (khác "") — tránh xóa key vô ý.
 				...(apiKey !== "" ? { apiKey } : {}),
 			},
@@ -125,6 +134,9 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 				agentChannelId: agentChannelId || null,
 				toolsEnabled,
 				actionsEnabled,
+				companionEnabled,
+				companionChannelId: companionChannelId || null,
+				companionCooldownMin,
 				apiKey: "",
 			},
 			{
@@ -312,6 +324,60 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 							(đúng quyền). Hành động phá cần bấm xác nhận.
 						</Text>
 					</FormControl>
+				</VStack>
+			</Box>
+
+			<Box bg="bg.surface" borderRadius="2xl" boxShadow="sm" p={6}>
+				<VStack align="stretch" spacing={4}>
+					<FormControl alignItems="center" display="flex">
+						<FormLabel mb={0}>Companion (bot tự quan sát & cà khịa)</FormLabel>
+						<Switch
+							isChecked={companionEnabled}
+							onChange={(event_: ChangeEvent<HTMLInputElement>) => {
+								setCompanionEnabled(event_.target.checked);
+							}}
+						/>
+					</FormControl>
+					<FormControl>
+						<FormLabel>Kênh companion</FormLabel>
+						<Select
+							placeholder="Chọn kênh…"
+							value={companionChannelId}
+							onChange={(event_: ChangeEvent<HTMLSelectElement>) => {
+								setCompanionChannelId(event_.target.value);
+							}}
+						>
+							{channels.map((c) => (
+								<option key={c.id} value={c.id}>
+									#{c.name}
+								</option>
+							))}
+						</Select>
+					</FormControl>
+					<FormControl>
+						<FormLabel>Cooldown (phút giữa 2 lần bot tự nói)</FormLabel>
+						<NumberInput
+							max={1440}
+							min={5}
+							value={companionCooldownMin}
+							onChange={(_, valueNumber: number) => {
+								setCompanionCooldownMin(
+									Number.isNaN(valueNumber) ? 45 : valueNumber
+								);
+							}}
+						>
+							<NumberInputField />
+							<NumberInputStepper>
+								<NumberIncrementStepper />
+								<NumberDecrementStepper />
+							</NumberInputStepper>
+						</NumberInput>
+					</FormControl>
+					<Text color="fg.muted" fontSize="xs">
+						Bot tự ngó hoạt động server (game/voice/chat) rồi thỉnh thoảng buông
+						một câu — không cần mention. Cần bật <b>Presence Intent</b> ở Developer
+						Portal để thấy ai đang chơi game.
+					</Text>
 				</VStack>
 			</Box>
 

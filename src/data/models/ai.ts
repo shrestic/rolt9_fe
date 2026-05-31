@@ -14,6 +14,9 @@ export const AiSettingsSchema = camelObject({
 	agentChannelId: z.string().nullable(),
 	toolsEnabled: z.boolean(),
 	actionsEnabled: z.boolean(),
+	companionEnabled: z.boolean(),
+	companionChannelId: z.string().nullable(),
+	companionCooldownMin: z.number().int(),
 	hasKey: z.boolean(),
 	keyHint: z.string(),
 	tokensUsedThisMonth: z.number().int(),
@@ -33,6 +36,9 @@ export type AiSettingsInput = {
 	agentChannelId: string | null;
 	toolsEnabled: boolean;
 	actionsEnabled: boolean;
+	companionEnabled: boolean;
+	companionChannelId: string | null;
+	companionCooldownMin: number;
 	apiKey?: string;
 };
 
