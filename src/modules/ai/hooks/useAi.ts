@@ -24,13 +24,14 @@ export const useAiSettings = (guildId: string): UseQueryResult<AiSettings> => {
 	});
 };
 
-// Whitelist provider/model cho dropdown — gần như tĩnh nên cache lâu.
+// Whitelist provider/model cho dropdown — đổi không thường xuyên nên cache 1h
+// (đừng Infinity: thêm model mới ở BE sẽ không bao giờ hiện cho tới khi hết cache).
 export const useAiCatalog = (): UseQueryResult<AiCatalog> => {
 	const repo = useAiRepository();
 	return useQuery({
 		queryKey: ["ai-catalog"],
 		queryFn: () => repo.getCatalog(),
-		staleTime: Infinity,
+		staleTime: 60 * 60 * 1000,
 	});
 };
 

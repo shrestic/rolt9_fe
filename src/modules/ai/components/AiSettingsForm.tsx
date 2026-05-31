@@ -237,8 +237,14 @@ export function AiSettingsForm({ guildId }: Props): ReactElement {
 			<Divider />
 
 			<Box>
+				{enabled && (!provider || !model) ? (
+					<Text color="red.400" fontSize="sm" mb={2}>
+						Chọn provider và model trước khi lưu (đang bật AI).
+					</Text>
+				) : null}
 				<Button
 					colorScheme="purple"
+					isDisabled={enabled && (!provider || !model)}
 					isLoading={update.isPending}
 					onClick={save}
 				>
